@@ -1,0 +1,27 @@
+export const colors = {
+  background: "#25005D",
+  backgroundOverlay: "rgba(37, 37, 37, 0.55)",
+  heroGradient: [
+    "rgba(212, 212, 212, 0)",
+    "rgba(81, 53, 123, 0.752)",
+    "rgba(53, 19, 104, 0.912)",
+    "#25005D",
+  ] as const,
+  cardGradient: [
+    "rgba(37, 2, 89, 0.52)",
+    "rgba(53, 25, 104, 0.52)",
+    "rgba(86, 72, 134, 0.52)",
+    "rgba(237, 182, 102, 0.52)",
+  ] as const,
+  textPrimary: "#FAF9FF",
+  textOnDark: "#FFFFFF",
+  accentGold: "#EDB666",
+  borderPurple: "#47348C",
+  glassLight: "rgba(255, 255, 255, 0.1)",
+  glassFaint: "rgba(255, 255, 255, 0.04)",
+  glassBorder: "rgba(255, 255, 255, 0.16)",
+  badgeBackground: "rgba(34, 23, 70, 0.4)",
+  tabBarTint: "rgba(37, 37, 37, 0.4)",
+  tabActivePill: "rgba(255, 255, 255, 0.06)",
+  shadowColor: "rgba(0, 0, 0, 0.05)",
+} as const;
