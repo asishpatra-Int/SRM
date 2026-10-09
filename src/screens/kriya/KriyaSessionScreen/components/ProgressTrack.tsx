@@ -2,7 +2,6 @@ import {type DimensionValue, StyleSheet, View} from "react-native";
 
 import {LinearGradient} from "expo-linear-gradient";
 
-import ProgressScrubber from "@/assets/svg/ProgressScrubber.svg";
 import {colors} from "@/core/theme";
 
 type ProgressTrackProps = {
@@ -12,7 +11,6 @@ type ProgressTrackProps = {
 export function ProgressTrack({progressRatio}: ProgressTrackProps) {
   const clamped = Math.min(Math.max(progressRatio, 0), 1);
   const fillWidth = `${clamped * 100}%` as DimensionValue;
-  const scrubberLeft = `${clamped * 100}%` as DimensionValue;
 
   return (
     <View style={styles.track}>
@@ -23,9 +21,6 @@ export function ProgressTrack({progressRatio}: ProgressTrackProps) {
         end={{x: 1, y: 0}}
         style={[styles.trackFill, {width: fillWidth}]}
       />
-      <View style={[styles.scrubber, {left: scrubberLeft}]}>
-        <ProgressScrubber width={22} height={22} />
-      </View>
     </View>
   );
 }
@@ -51,11 +46,5 @@ const styles = StyleSheet.create({
     top: 3,
     height: 7,
     borderRadius: 3.5,
-  },
-  scrubber: {
-    position: "absolute",
-    top: "50%",
-    marginTop: -11,
-    transform: [{translateX: -11}],
   },
 });
