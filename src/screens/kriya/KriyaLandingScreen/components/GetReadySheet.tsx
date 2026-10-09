@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Platform, Pressable, StyleSheet, Text, View} from "react-native";
 
 import {BlurView} from "expo-blur";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -9,6 +9,12 @@ import {colors, radii, typography} from "@/core/theme";
 const TITLE = "Get Ready";
 const MESSAGE =
   "Turn On Airplane Mode to Prevent Any Disruption During the Kriya.";
+
+// A React Native Modal is its own window on Android, so expo-blur cannot
+const SHEET_BACKGROUND = Platform.select({
+  android: colors.sheetBackgroundAndroid,
+  default: colors.sheetBackground,
+});
 
 type GetReadySheetProps = {
   visible: boolean;
@@ -27,12 +33,12 @@ export function GetReadySheet({visible, onClose, onNext}: GetReadySheetProps) {
         style={[
           styles.sheet,
           {
-            backgroundColor: colors.sheetBackground,
+            backgroundColor: SHEET_BACKGROUND,
             paddingBottom: Math.max(insets.bottom, 24) + 19,
           },
         ]}>
         <View style={styles.content}>
-          <Text style={typography.sheetTitle}>{TITLE}</Text>
+          <Text style={[typography.sheetTitle, styles.title]}>{TITLE}</Text>
           <Text style={[typography.sheetMessage, styles.message]}>
             {MESSAGE}
           </Text>
@@ -61,6 +67,11 @@ const styles = StyleSheet.create({
   content: {
     alignItems: "center",
     gap: 12,
+  },
+  // Figma: #FAF9FF. typography entries carry metrics only, so colour has to be
+  // merged in at the call site — this was the missing piece.
+  title: {
+    color: colors.textPrimary,
   },
   message: {
     color: colors.textOnDark,

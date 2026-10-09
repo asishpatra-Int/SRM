@@ -1,3 +1,5 @@
+import {useRef} from "react";
+
 import {StyleSheet, View} from "react-native";
 
 import {router} from "expo-router";
@@ -14,21 +16,31 @@ import {
   SessionExitButton,
 } from "./components";
 
+// above the ring there while looking correct on iOS.
+const RING_CENTRE_RATIO = `${(321.5 / 874) * 100}%`;
+// Where the lotus sits inside SessionArtwork's 308x313 frame: 32 + 271/2.
+const ARTWORK_CENTRE_OFFSET = 167.5;
+
 type KriyaSessionScreenProps = {
   practiceId?: string;
 };
 
 export function KriyaSessionScreen({practiceId}: KriyaSessionScreenProps) {
   const session = getPracticeSessionById(practiceId);
+  const blurTargetRef = useRef<View>(null);
 
   return (
     <View style={styles.root}>
-      <SessionBackground />
+      <SessionBackground blurTargetRef={blurTargetRef} />
+      <View style={styles.artworkArea} pointerEvents="none">
+        <SessionArtwork />
+      </View>
       <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
-        <SessionExitButton onPress={() => router.back()} />
-        <View style={styles.artworkArea}>
-          <SessionArtwork />
-        </View>
+        <SessionExitButton
+          onPress={() => router.back()}
+          blurTarget={blurTargetRef}
+        />
+        <View style={styles.spacer} />
         <View style={styles.playerArea}>
           <PlayerCard
             title={session.title}
@@ -45,14 +57,21 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
+  artworkArea: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: RING_CENTRE_RATIO,
+    alignItems: "center",
+    transform: [{translateY: -ARTWORK_CENTRE_OFFSET}],
+  },
   safeArea: {
     flex: 1,
     paddingHorizontal: spacing.xxl,
     paddingTop: spacing.xxl,
   },
-  artworkArea: {
+  spacer: {
     flex: 1,
-    justifyContent: "center",
   },
   playerArea: {
     marginBottom: spacing.xxxl,

@@ -33,11 +33,19 @@ export const colors = {
   glassLight: "rgba(255, 255, 255, 0.1)",
   glassFaint: "rgba(255, 255, 255, 0.04)",
   glassBorder: "rgba(255, 255, 255, 0.16)",
+  // Figma "window glass" inset highlight: inset 0 1px 1px #FFFFFF99.
+  glassHighlight: "rgba(255, 255, 255, 0.6)",
   badgeBackground: "rgba(34, 23, 70, 0.4)",
   tabBarTint: "rgba(37, 37, 37, 0.4)",
   tabActivePill: "rgba(255, 255, 255, 0.06)",
   shadowColor: "rgba(0, 0, 0, 0.05)",
+  // Figma value — the design leans entirely on the backdrop blur for the
+  // sheet's weight, so this tint is nearly transparent on its own. Used on iOS.
   sheetBackground: "rgba(53, 31, 111, 0.08)",
+  // Android only: a React Native Modal is its own window there, so a backdrop
+  // blur has nothing of the screen behind it to sample. Same hue, carrying the
+  // sheet's weight itself instead of relying on a blur that cannot happen.
+  sheetBackgroundAndroid: "rgba(53, 31, 111, 0.92)",
   sheetScrim: "rgba(0, 0, 0, 0.45)",
   ctaTextDark: "#250259",
   timeLabelDark: "#321556",

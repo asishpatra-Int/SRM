@@ -3,14 +3,13 @@ import {StyleSheet, View} from "react-native";
 import {Image} from "expo-image";
 
 import artwork from "@/assets/kriya-session-artwork.png";
-import GlowBlobSession from "@/assets/svg/GlowBlobSession.svg";
 
+// Figma: a 308x313 frame holding a 266x271 image inset 32 from its top.
+// The glowing ring behind the lotus is baked into the screen's background
+// image, so there is no separate glow layer here.
 export function SessionArtwork() {
   return (
     <View style={styles.container} pointerEvents="none">
-      <View style={styles.glow}>
-        <GlowBlobSession width={251} height={251} />
-      </View>
       <Image source={artwork} style={styles.image} contentFit="contain" />
     </View>
   );
@@ -21,13 +20,6 @@ const styles = StyleSheet.create({
     width: 308,
     height: 313,
     alignSelf: "center",
-  },
-  glow: {
-    position: "absolute",
-    left: 29,
-    top: 22,
-    width: 251,
-    height: 251,
   },
   image: {
     position: "absolute",
