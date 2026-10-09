@@ -1,0 +1,65 @@
+# Generated from .agent/rules/.agentignore — edit the source, not this file.
+
+# 1. Dependencies — token sinks
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+target/
+vendor/
+
+# 2. Build artefacts & caches — compiled output has no context value
+dist/
+build/
+out/
+web-build/
+.next/
+.nuxt/
+.expo/
+.expo-shared/
+coverage/
+.cache/
+__pycache__/
+*.pyc
+
+# 3. Secrets — hard boundary
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
+
+# 4. Logs & local databases — noise
+logs/
+*.log
+npm-debug.log*
+*.sqlite
+*.db
+
+# 5. Binary & media — unreadable
+public/assets/
+images/
+*.png
+*.jpg
+*.mp4
+*.ico
+*.pdf
+
+# 6. Agent audit trail — prevents recursive self-reading
+.ai-context/prompt_history/
+
+# 7. Stack-specific (Expo / React Native) — generated native projects & signing material
+ios/
+android/
+*.ipa
+*.apk
+*.aab
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+*.orig.*
+.kotlin/
+.metro-health-check*

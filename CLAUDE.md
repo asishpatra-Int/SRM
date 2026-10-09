@@ -1,1 +1,24 @@
 @AGENTS.md
+
+# Project Instructions
+
+This repository follows Specification-Driven Delivery. Work proceeds against an
+approved spec, task by task, by ID. See AIF §3 for the lifecycle states — no workflow
+runs against an artefact in the wrong state.
+
+**Always load, every session:**
+- `.agent/rules/standards.core.md`
+- `.agent/rules/standards.expo.md`
+- `.agent/rules/agent-conduct.md`
+
+**Load before any feature work:** `.ai-context/constitution.md`,
+`.ai-context/project_context.md`, `.ai-context/architecture.md`.
+
+**Load for the feature in hand:** `.ai-context/specs/<slug>.spec.md` and its plan and
+tasks files. Check the spec's Status field before doing anything.
+
+**Reusable task templates:** `.agent/workflows/`.
+
+Exclusions in `.agent/rules/.agentignore` apply regardless of what this tool
+enforces natively. This repo's Claude Code `permissions.deny` (`.claude/settings.json`)
+is generated from the same source — edit `.agent/rules/.agentignore`, not that file.
