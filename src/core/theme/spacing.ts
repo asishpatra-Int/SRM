@@ -13,4 +13,6 @@ export const radii = {
   md: 24,
   lg: 38,
   pill: 50,
+  sheetTop: 20,
+  ctaPill: 53,
 } as const;

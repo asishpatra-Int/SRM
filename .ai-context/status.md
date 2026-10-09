@@ -53,3 +53,17 @@ _Last updated: 2026-10-09_
   (the base rule false-positives on named params in TS function-type signatures).
   After these fixes: `eslint .`, `tsc --noEmit`, and `prettier --check` are all clean
   across `src/`, root config files, and `declarations.d.ts`.
+- **Off-process exception (continued):** extended the Kriya UI prototype — same
+  explicit no-spec bypass as the landing screen above, still mock-data/no-backend.
+  Added: tapping either practice card on the Kriya landing screen opens a "Get Ready"
+  bottom sheet (Figma node 757:4242) via a new reusable `core/base/BottomSheet`
+  (Reanimated-driven fade+slide, `Modal` for backdrop/back-button handling, no new
+  dependency); its "Next" CTA navigates to a new full-screen session/player route
+  `src/app/session/[practiceId].tsx` → `screens/kriya/KriyaSessionScreen` (Figma node
+  757:4054), styled off a shared `components/GradientImageBackground` (extracted from
+  `GlowBackground` once a second screen needed the same image+gradient pattern).
+  Practice-session mock data moved from `KriyaLandingScreen/mockData.ts` up to
+  `screens/kriya/mockData.ts` so both screens in the feature group can read it
+  (`getPracticeSessionById`). No new dependencies added. `tsc --noEmit`, `eslint .`,
+  `prettier --check`, and an `expo start --web` bundle smoke test (including the new
+  dynamic route) are all clean.

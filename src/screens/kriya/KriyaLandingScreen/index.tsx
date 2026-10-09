@@ -1,5 +1,8 @@
+import {useState} from "react";
+
 import {ScrollView, StyleSheet, View} from "react-native";
 
+import {router} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 import SrmLogo from "@/assets/svg/SrmLogo.svg";
@@ -7,18 +10,38 @@ import {AppText} from "@/components";
 import {colors, spacing, typography} from "@/core/theme";
 
 import {
-  AudioListItem,
-  CompletionBadge,
-  GlowBackground,
-  PracticeCard,
-} from "./components";
-import {
   MOCK_GUIDED_AUDIOS,
   MOCK_PRACTICE_SESSIONS,
   MOCK_TIMES_COMPLETED_TODAY,
-} from "./mockData";
+  type PracticeSessionMock,
+} from "../mockData";
+
+import {
+  AudioListItem,
+  CompletionBadge,
+  GetReadySheet,
+  GlowBackground,
+  PracticeCard,
+} from "./components";
 
 export function KriyaLandingScreen() {
+  const [selectedSession, setSelectedSession] =
+    useState<PracticeSessionMock | null>(null);
+
+  const handleSheetClose = () => setSelectedSession(null);
+
+  const handleNext = () => {
+    if (!selectedSession) {
+      return;
+    }
+    const practiceId = selectedSession.id;
+    setSelectedSession(null);
+    router.push({
+      pathname: "/session/[practiceId]",
+      params: {practiceId},
+    });
+  };
+
   return (
     <View style={styles.root}>
       <GlowBackground />
@@ -37,6 +60,7 @@ export function KriyaLandingScreen() {
                   title={session.title}
                   subtitle={session.subtitle}
                   durationLabel={session.durationLabel}
+                  onPress={() => setSelectedSession(session)}
                 />
               ))}
             </View>
@@ -58,6 +82,11 @@ export function KriyaLandingScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
+      <GetReadySheet
+        visible={selectedSession !== null}
+        onClose={handleSheetClose}
+        onNext={handleNext}
+      />
     </View>
   );
 }

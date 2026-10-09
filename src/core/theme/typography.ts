@@ -1,4 +1,4 @@
-import type {TextStyle} from "react-native";
+import type { TextStyle } from "react-native";
 
 export const typography = {
   heading: {
@@ -39,5 +39,32 @@ export const typography = {
   tabLabel: {
     fontSize: 12,
     fontWeight: "600",
+  },
+  sheetTitle: {
+    fontSize: 32,
+    fontWeight: "300",
+    letterSpacing: -0.32,
+    textAlign: "center",
+  },
+  sheetMessage: {
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight: 23,
+    textAlign: "center",
+  },
+  ctaLabel: {
+    fontSize: 18,
+    fontWeight: "600",
+    letterSpacing: -0.5,
+    textAlign: "center",
+  },
+  exitLabel: {
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  timeLabel: {
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: -0.1,
   },
 } as const satisfies Record<string, TextStyle>;
