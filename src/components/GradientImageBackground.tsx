@@ -8,6 +8,11 @@ import {LinearGradient, type LinearGradientProps} from "expo-linear-gradient";
 type GradientImageBackgroundProps = {
   image: ImageSource | number;
   imageStyle: ViewStyle;
+  /**
+   * Applied to the image only — the gradient sits on top of it at full
+   * strength, as it does in the design. Omit to leave the image fully opaque.
+   */
+  imageOpacity?: number;
   gradientColors: LinearGradientProps["colors"];
   gradientLocations?: LinearGradientProps["locations"];
   children?: ReactNode;
@@ -16,6 +21,7 @@ type GradientImageBackgroundProps = {
 export function GradientImageBackground({
   image,
   imageStyle,
+  imageOpacity,
   gradientColors,
   gradientLocations,
   children,
@@ -25,7 +31,7 @@ export function GradientImageBackground({
       <View style={imageStyle}>
         <Image
           source={image}
-          style={StyleSheet.absoluteFill}
+          style={[StyleSheet.absoluteFill, {opacity: imageOpacity}]}
           contentFit="cover"
         />
         <LinearGradient

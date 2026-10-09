@@ -1,15 +1,15 @@
-import {StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-import {Image} from "expo-image";
-import {LinearGradient} from "expo-linear-gradient";
+import { Image } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 
 import cardBackground from "@/assets/kriya-session-card-bg.png";
 import PlayerRingGlow from "@/assets/svg/PlayerRingGlow.svg";
 import VolumeIcon from "@/assets/svg/VolumeIcon.svg";
-import {colors, radii, spacing, typography} from "@/core/theme";
+import { colors, radii, spacing, typography } from "@/core/theme";
 
-import {EqualizerBars} from "./EqualizerBars";
-import {ProgressTrack} from "./ProgressTrack";
+import { EqualizerBars } from "./EqualizerBars";
+import { ProgressTrack } from "./ProgressTrack";
 
 type PlayerCardProps = {
   title: string;

@@ -10,10 +10,10 @@ import {spacing} from "@/core/theme";
 import {getPracticeSessionById} from "../mockData";
 
 import {
+  GlassPillButton,
   PlayerCard,
   SessionArtwork,
   SessionBackground,
-  SessionExitButton,
 } from "./components";
 
 // above the ring there while looking correct on iOS.
@@ -36,10 +36,18 @@ export function KriyaSessionScreen({practiceId}: KriyaSessionScreenProps) {
         <SessionArtwork />
       </View>
       <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
-        <SessionExitButton
-          onPress={() => router.back()}
-          blurTarget={blurTargetRef}
-        />
+        <View style={styles.headerRow}>
+          <GlassPillButton
+            label="Exit"
+            onPress={() => router.back()}
+            blurTarget={blurTargetRef}
+          />
+          <GlassPillButton
+            label="Next"
+            onPress={() => router.push("/mood")}
+            blurTarget={blurTargetRef}
+          />
+        </View>
         <View style={styles.spacer} />
         <View style={styles.playerArea}>
           <PlayerCard
@@ -69,6 +77,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: spacing.xxl,
     paddingTop: spacing.xxl,
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   spacer: {
     flex: 1,

@@ -53,4 +53,6 @@ export const colors = {
   progressFillFrom: "#FFFFFF",
   progressFillTo: "#FF9822",
   equalizerBar: "rgba(255, 255, 255, 0.85)",
+  moodGradient: ["#2B1A6C", "rgba(102, 102, 102, 0)"] as const,
+  moodSliderTrack: "rgba(255, 255, 255, 0.14)",
 } as const;

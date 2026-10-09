@@ -67,4 +67,15 @@ export const typography = {
     fontWeight: "700",
     letterSpacing: -0.1,
   },
+  moodLabel: {
+    fontSize: 48,
+    fontWeight: "600",
+    letterSpacing: -0.48,
+    textAlign: "center",
+  },
+  sliderEndLabel: {
+    fontSize: 14,
+    fontWeight: "500",
+    letterSpacing: -0.14,
+  },
 } as const satisfies Record<string, TextStyle>;

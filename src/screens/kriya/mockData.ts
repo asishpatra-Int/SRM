@@ -48,3 +48,9 @@ export const MOCK_GUIDED_AUDIOS: GuidedAudioMock[] = [
   {id: "rohaniyat", title: "Rohaniyat", titleWeight: "semibold"},
   {id: "sri-gurus-voice", title: "Sri Guru's Voice", titleWeight: "medium"},
 ];
+
+export const MOCK_KRIYA_MOOD = {
+  label: "Neutral",
+  // 0 = Poor, 1 = Excellent.
+  valueRatio: 0.5,
+};

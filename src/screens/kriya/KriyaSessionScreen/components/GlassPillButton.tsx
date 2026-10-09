@@ -1,12 +1,13 @@
-import type {RefObject} from "react";
+import type { RefObject } from "react";
 
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import {BlurView} from "expo-blur";
+import { BlurView } from "expo-blur";
 
-import {colors, radii, spacing, typography} from "@/core/theme";
+import { colors, radii, spacing, typography } from "@/core/theme";
 
-type SessionExitButtonProps = {
+type GlassPillButtonProps = {
+  label: string;
   onPress: () => void;
   /**
    * The background this pill blurs. Required on Android: without it,
@@ -15,22 +16,20 @@ type SessionExitButtonProps = {
   blurTarget?: RefObject<View | null>;
 };
 
-export function SessionExitButton({
+export function GlassPillButton({
+  label,
   onPress,
   blurTarget,
-}: SessionExitButtonProps) {
+}: GlassPillButtonProps) {
   return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      style={styles.wrapper}>
+    <Pressable onPress={onPress} accessibilityRole="button">
       <BlurView
         intensity={25}
         tint="light"
         blurMethod="dimezisBlurView"
         blurTarget={blurTarget}
         style={styles.pill}>
-        <Text style={styles.label}>Exit</Text>
+        <Text style={styles.label}>{label}</Text>
         <View pointerEvents="none" style={styles.highlight} />
       </BlurView>
     </Pressable>
@@ -38,11 +37,6 @@ export function SessionExitButton({
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    alignSelf: "flex-start",
-  },
-  // Figma: px 16 / py 10, radius 50, fill rgba(255,255,255,0.04) over a
-  // backdrop blur — a lightening frosted pill, not a darkening one.
   pill: {
     paddingHorizontal: spacing.lg,
     paddingVertical: 10,
@@ -50,8 +44,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: colors.glassFaint,
   },
-  // Figma draws the "window glass" inset highlight as its own overlay layer;
-  // it is what gives the pill its defined upper edge.
   highlight: {
     position: "absolute",
     top: 0,
