@@ -1,13 +1,14 @@
-import { BlurView } from "expo-blur";
-import { StyleSheet, Text } from "react-native";
+import {StyleSheet, Text} from "react-native";
 
-import { colors, radii, spacing, typography } from "@/core/theme";
+import {BlurView} from "expo-blur";
+
+import {colors, radii, spacing, typography} from "@/core/theme";
 
 type CompletionBadgeProps = {
   timesCompletedToday: number;
 };
 
-export function CompletionBadge({ timesCompletedToday }: CompletionBadgeProps) {
+export function CompletionBadge({timesCompletedToday}: CompletionBadgeProps) {
   const timesLabel = timesCompletedToday === 1 ? "Time" : "Times";
 
   return (

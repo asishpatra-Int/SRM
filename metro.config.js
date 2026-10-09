@@ -1,9 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { getDefaultConfig } = require("expo/metro-config");
+const {getDefaultConfig} = require("expo/metro-config");
 
 const config = getDefaultConfig(__dirname);
 
-const { transformer, resolver } = config;
+const {transformer, resolver} = config;
 
 config.transformer = {
   ...transformer,
@@ -11,7 +10,7 @@ config.transformer = {
 };
 config.resolver = {
   ...resolver,
-  assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
+  assetExts: resolver.assetExts.filter(ext => ext !== "svg"),
   sourceExts: [...resolver.sourceExts, "svg"],
 };
 

@@ -10,8 +10,13 @@ export type PracticeSessionMock = {
 export const MOCK_TIMES_COMPLETED_TODAY = 1;
 
 export const MOCK_PRACTICE_SESSIONS: PracticeSessionMock[] = [
-  { id: "swaraj-kriya", title: "SwaRaj Kriya", durationLabel: "30 MIN" },
-  { id: "swaraj-kriya-extended", title: "SwaRaj Kriya", subtitle: "Extended", durationLabel: "45 MIN" },
+  {id: "swaraj-kriya", title: "SwaRaj Kriya", durationLabel: "30 MIN"},
+  {
+    id: "swaraj-kriya-extended",
+    title: "SwaRaj Kriya",
+    subtitle: "Extended",
+    durationLabel: "45 MIN",
+  },
 ];
 
 export type GuidedAudioMock = {
@@ -21,6 +26,6 @@ export type GuidedAudioMock = {
 };
 
 export const MOCK_GUIDED_AUDIOS: GuidedAudioMock[] = [
-  { id: "rohaniyat", title: "Rohaniyat", titleWeight: "semibold" },
-  { id: "sri-gurus-voice", title: "Sri Guru's Voice", titleWeight: "medium" },
+  {id: "rohaniyat", title: "Rohaniyat", titleWeight: "semibold"},
+  {id: "sri-gurus-voice", title: "Sri Guru's Voice", titleWeight: "medium"},
 ];

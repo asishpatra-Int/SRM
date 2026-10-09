@@ -1,1 +1,1 @@
-export { ExploreScreen } from "./ExploreScreen";
+export {ExploreScreen} from "./ExploreScreen";

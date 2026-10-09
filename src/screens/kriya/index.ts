@@ -1,1 +1,1 @@
-export { KriyaLandingScreen } from "./KriyaLandingScreen";
+export {KriyaLandingScreen} from "./KriyaLandingScreen";

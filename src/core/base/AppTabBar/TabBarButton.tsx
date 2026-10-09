@@ -1,9 +1,17 @@
-import { forwardRef } from "react";
-import type { ComponentType } from "react";
-import { Pressable, StyleSheet, Text, View, type GestureResponderEvent } from "react-native";
-import type { SvgProps } from "react-native-svg";
+import {forwardRef} from "react";
+import type {ComponentType} from "react";
 
-import { colors, spacing, typography, radii } from "@/core/theme";
+import {
+  type GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+
+import {colors, radii, spacing, typography} from "@/core/theme";
+
+import type {SvgProps} from "react-native-svg";
 
 type TabBarButtonProps = {
   label: string;
@@ -13,17 +21,18 @@ type TabBarButtonProps = {
 };
 
 export const TabBarButton = forwardRef<View, TabBarButtonProps>(
-  ({ label, Icon, isFocused, onPress }, ref) => {
+  ({label, Icon, isFocused, onPress}, ref) => {
     return (
       <Pressable
         ref={ref}
         onPress={onPress}
         accessibilityRole="tab"
-        accessibilityState={{ selected: !!isFocused }}
-        style={[styles.button, isFocused && styles.buttonActive]}
-      >
+        accessibilityState={{selected: !!isFocused}}
+        style={[styles.button, isFocused && styles.buttonActive]}>
         <Icon width={isFocused ? 17 : 22} height={isFocused ? 23 : 22} />
-        <Text style={[styles.label, isFocused && styles.labelActive]}>{label}</Text>
+        <Text style={[styles.label, isFocused && styles.labelActive]}>
+          {label}
+        </Text>
       </Pressable>
     );
   },

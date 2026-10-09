@@ -1,1 +1,1 @@
-export { PracticeScreen } from "./PracticeScreen";
+export {PracticeScreen} from "./PracticeScreen";

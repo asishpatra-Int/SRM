@@ -1,12 +1,14 @@
-import { Tabs, TabList, TabSlot, TabTrigger } from "expo-router/ui";
+import {StyleSheet} from "react-native";
 
-import { AppTabBar } from "@/core/base/AppTabBar";
+import {TabList, Tabs, TabSlot, TabTrigger} from "expo-router/ui";
+
+import {AppTabBar} from "@/core/base/AppTabBar";
 
 export default function TabsLayout() {
   return (
     <Tabs>
       <TabSlot />
-      <TabList style={{ display: "none" }}>
+      <TabList style={styles.hidden}>
         <TabTrigger name="kriya" href="/" />
         <TabTrigger name="practice" href="/practice" />
         <TabTrigger name="explore" href="/explore" />
@@ -16,3 +18,9 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  hidden: {
+    display: "none",
+  },
+});

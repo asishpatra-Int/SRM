@@ -1,10 +1,11 @@
-import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 
-import PlaySymbol from "@/assets/svg/PlaySymbol.svg";
+import {Image} from "expo-image";
+import {LinearGradient} from "expo-linear-gradient";
+
 import cardBackground from "@/assets/kriya-card-bg.png";
-import { colors, radii, spacing, typography } from "@/core/theme";
+import PlaySymbol from "@/assets/svg/PlaySymbol.svg";
+import {colors, radii, spacing, typography} from "@/core/theme";
 
 type PracticeCardProps = {
   title: string;
@@ -13,14 +14,23 @@ type PracticeCardProps = {
   onPress?: () => void;
 };
 
-export function PracticeCard({ title, subtitle, durationLabel, onPress }: PracticeCardProps) {
+export function PracticeCard({
+  title,
+  subtitle,
+  durationLabel,
+  onPress,
+}: PracticeCardProps) {
   return (
     <Pressable style={styles.card} onPress={onPress}>
-      <Image source={cardBackground} style={StyleSheet.absoluteFill} contentFit="cover" />
+      <Image
+        source={cardBackground}
+        style={StyleSheet.absoluteFill}
+        contentFit="cover"
+      />
       <LinearGradient
         colors={colors.cardGradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
         style={StyleSheet.absoluteFill}
       />
       <View style={styles.content}>

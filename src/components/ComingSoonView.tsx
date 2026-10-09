@@ -1,15 +1,16 @@
-import { StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {StyleSheet, View} from "react-native";
 
-import { colors, spacing, typography } from "@/core/theme";
+import {SafeAreaView} from "react-native-safe-area-context";
 
-import { AppText } from "./AppText";
+import {colors, spacing, typography} from "@/core/theme";
+
+import {AppText} from "./AppText";
 
 type ComingSoonViewProps = {
   title: string;
 };
 
-export function ComingSoonView({ title }: ComingSoonViewProps) {
+export function ComingSoonView({title}: ComingSoonViewProps) {
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safeArea}>

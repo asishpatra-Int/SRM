@@ -1,4 +1,4 @@
-import { ProfileScreen } from "@/screens/profile";
+import {ProfileScreen} from "@/screens/profile";
 
 export default function ProfileRoute() {
   return <ProfileScreen />;
