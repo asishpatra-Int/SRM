@@ -78,4 +78,15 @@ export const typography = {
     fontWeight: "500",
     letterSpacing: -0.14,
   },
+  chipLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+    letterSpacing: -1,
+    textTransform: "capitalize",
+  },
+  noteLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+    letterSpacing: -0.16,
+  },
 } as const satisfies Record<string, TextStyle>;

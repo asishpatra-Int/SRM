@@ -1,10 +1,10 @@
-import type { RefObject } from "react";
+import type {RefObject} from "react";
 
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 
-import { BlurView } from "expo-blur";
+import {BlurView} from "expo-blur";
 
-import { colors, radii, spacing, typography } from "@/core/theme";
+import {colors, radii, spacing, typography} from "@/core/theme";
 
 type GlassPillButtonProps = {
   label: string;

@@ -15,4 +15,5 @@ export const radii = {
   pill: 50,
   sheetTop: 20,
   ctaPill: 53,
+  chip: 48,
 } as const;

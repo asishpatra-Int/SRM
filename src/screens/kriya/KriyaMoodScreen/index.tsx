@@ -10,9 +10,8 @@ import {MOCK_KRIYA_MOOD} from "../mockData";
 
 import {MoodBackground, MoodSlider} from "./components";
 
-// Ends the Kriya flow (Get Ready -> Session -> Mood check) and returns home.
 function handleNext() {
-  router.dismissAll();
+  router.push("/improve");
 }
 
 export function KriyaMoodScreen() {

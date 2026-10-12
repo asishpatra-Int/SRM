@@ -55,4 +55,9 @@ export const colors = {
   equalizerBar: "rgba(255, 255, 255, 0.85)",
   moodGradient: ["#2B1A6C", "rgba(102, 102, 102, 0)"] as const,
   moodSliderTrack: "rgba(255, 255, 255, 0.14)",
+  chipBackground: "rgba(255, 255, 255, 0.2)",
+  // Figma's `palette/tone-04` — a design-system token bound to this exact
+  // chip component, distinct from the app's CTA gold (accentGold).
+  chipBackgroundSelected: "#D89F53",
+  noteInputBackground: "rgba(255, 255, 255, 0.08)",
 } as const;

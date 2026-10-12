@@ -54,3 +54,17 @@ export const MOCK_KRIYA_MOOD = {
   // 0 = Poor, 1 = Excellent.
   valueRatio: 0.5,
 };
+
+export type ImprovementOptionMock = {
+  id: string;
+  label: string;
+};
+
+export const MOCK_IMPROVEMENT_OPTIONS: ImprovementOptionMock[] = [
+  {id: "low-on-energy", label: "Low on energy"},
+  {id: "not-well", label: "Not well"},
+  {id: "too-many-thoughts", label: "Too many thoughts"},
+  {id: "less-focus", label: "Less focus"},
+  {id: "got-asleep", label: "I got asleep"},
+  {id: "lacking-motivation", label: "Lacking in motivation"},
+];
