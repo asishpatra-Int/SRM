@@ -6,9 +6,8 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {AppButton, AppText} from "@/components";
 import {colors, spacing, typography} from "@/core/theme";
 
+import {MoodBackground, MoodSlider} from "../components";
 import {MOCK_KRIYA_MOOD} from "../mockData";
-
-import {MoodBackground, MoodSlider} from "./components";
 
 function handleNext() {
   router.push("/improve");
@@ -25,7 +24,11 @@ export function KriyaMoodScreen() {
         <View style={styles.spacerLarge} />
         <View style={styles.moodBlock}>
           <Text style={styles.moodLabel}>{MOCK_KRIYA_MOOD.label}</Text>
-          <MoodSlider valueRatio={MOCK_KRIYA_MOOD.valueRatio} />
+          <MoodSlider
+            valueRatio={MOCK_KRIYA_MOOD.valueRatio}
+            lowLabel="Poor"
+            highLabel="Excellent"
+          />
         </View>
         <View style={styles.spacerSmall} />
         <AppButton label="Next" onPress={handleNext} />

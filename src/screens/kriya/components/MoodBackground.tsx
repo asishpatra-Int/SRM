@@ -9,6 +9,9 @@ import {colors} from "@/core/theme";
 
 const IMAGE_OPACITY = 0.82;
 
+// Shared by every mood-style check-in in the Kriya flow (KriyaMoodScreen,
+// KriyaFeelingScreen) — same gradient image, glow and base colour per Figma.
+//
 // Same ambient-glow fix as GlowBackground/SessionBackground: Figma's export
 // of this glow is a tiny circle plus an SVG feGaussianBlur filter, which
 // react-native-svg cannot render — this PNG has the blur baked into the

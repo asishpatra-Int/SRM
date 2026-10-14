@@ -1,3 +1,4 @@
+export {KriyaFeelingScreen} from "./KriyaFeelingScreen";
 export {KriyaImproveScreen} from "./KriyaImproveScreen";
 export {KriyaLandingScreen} from "./KriyaLandingScreen";
 export {KriyaMoodScreen} from "./KriyaMoodScreen";

@@ -17,9 +17,8 @@ import {
   ShareCheckbox,
 } from "./components";
 
-// Ends the Kriya flow (Get Ready -> Session -> Mood -> Improve) and returns home.
 function handleNext() {
-  router.dismissAll();
+  router.push("/feeling");
 }
 
 export function KriyaImproveScreen() {

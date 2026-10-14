@@ -55,6 +55,12 @@ export const MOCK_KRIYA_MOOD = {
   valueRatio: 0.5,
 };
 
+export const MOCK_KRIYA_FEELING_NOW = {
+  label: "Neutral",
+  // 0 = Not Feeling Good, 1 = Feeling Good.
+  valueRatio: 0.5,
+};
+
 export type ImprovementOptionMock = {
   id: string;
   label: string;

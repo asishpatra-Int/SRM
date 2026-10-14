@@ -5,14 +5,20 @@ import {colors, typography} from "@/core/theme";
 const THUMB_SIZE = 28;
 
 type MoodSliderProps = {
-  /** 0 = Poor, 1 = Excellent. */
+  /** 0 = lowLabel, 1 = highLabel. */
   valueRatio: number;
+  lowLabel: string;
+  highLabel: string;
 };
 
+// Shared by every mood-style check-in in the Kriya flow (KriyaMoodScreen,
+// KriyaFeelingScreen) — same track/thumb, with the end labels left up to the
+// caller since each check-in asks a differently worded question.
+//
 // Figma bakes the track + thumb into a single flattened SVG at a fixed 354px
 // width. Rendered as plain Views instead: stretching that image to fit other
 // screen widths would squash the circular thumb into an ellipse.
-export function MoodSlider({valueRatio}: MoodSliderProps) {
+export function MoodSlider({valueRatio, lowLabel, highLabel}: MoodSliderProps) {
   const clamped = Math.min(Math.max(valueRatio, 0), 1);
   const thumbLeft = `${clamped * 100}%` as DimensionValue;
 
@@ -22,8 +28,8 @@ export function MoodSlider({valueRatio}: MoodSliderProps) {
         <View style={[styles.thumb, {left: thumbLeft}]} />
       </View>
       <View style={styles.labelRow}>
-        <Text style={styles.label}>Poor</Text>
-        <Text style={styles.label}>Excellent</Text>
+        <Text style={styles.label}>{lowLabel}</Text>
+        <Text style={styles.label}>{highLabel}</Text>
       </View>
     </View>
   );
