@@ -13,10 +13,34 @@ import {colors, radii, spacing} from "@/core/theme";
 import {TabBarButton} from "./TabBarButton";
 
 const TABS = [
-  {name: "kriya", label: "Kriya", Icon: KriyaTabIcon},
-  {name: "practice", label: "Practice", Icon: PracticeTabIcon},
-  {name: "explore", label: "Explore", Icon: ExploreTabIcon},
-  {name: "profile", label: "Profile", Icon: ProfileTabIcon},
+  {
+    name: "kriya",
+    label: "Kriya",
+    Icon: KriyaTabIcon,
+    iconWidth: 17,
+    iconHeight: 23,
+  },
+  {
+    name: "practice",
+    label: "Practice",
+    Icon: PracticeTabIcon,
+    iconWidth: 22,
+    iconHeight: 22,
+  },
+  {
+    name: "explore",
+    label: "Explore",
+    Icon: ExploreTabIcon,
+    iconWidth: 22,
+    iconHeight: 22,
+  },
+  {
+    name: "profile",
+    label: "Profile",
+    Icon: ProfileTabIcon,
+    iconWidth: 22,
+    iconHeight: 22,
+  },
 ] as const;
 
 export function AppTabBar() {
@@ -30,9 +54,14 @@ export function AppTabBar() {
       ]}
       pointerEvents="box-none">
       <BlurView intensity={60} tint="dark" style={styles.bar}>
-        {TABS.map(({name, label, Icon}) => (
+        {TABS.map(({name, label, Icon, iconWidth, iconHeight}) => (
           <TabTrigger key={name} name={name} asChild>
-            <TabBarButton label={label} Icon={Icon} />
+            <TabBarButton
+              label={label}
+              Icon={Icon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+            />
           </TabTrigger>
         ))}
       </BlurView>

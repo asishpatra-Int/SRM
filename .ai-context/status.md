@@ -129,3 +129,28 @@ _Last updated: 2026-10-15_
   both new routes) and by deep-linking into Expo Go on an iOS Simulator;
   screenshots match both Figma frames. `tsc --noEmit`, `eslint .`, and
   `prettier --check` are all clean.
+
+- **Off-process exception (continued):** reworked `core/base/AppTabBar`'s
+  selected-tab styling on user request — was a discrete icon-size swap
+  (17×23 active / 22×22 inactive, warping each icon's own aspect ratio) with
+  Kriya's flower permanently gold (baked into `KriyaTabIcon.svg`) regardless
+  of selection. Now every tab (Kriya included) renders at one fixed,
+  aspect-correct size always, and only the color + the existing rounded
+  highlight pill change on selection: white when inactive, the brand gold
+  (`colors.accentGold`) when active — a plain conditional style, no
+  Animated/Reanimated involved either before or after. To make the four tab
+  icons colorable at all, changed `KriyaTabIcon.svg`/`PracticeTabIcon.svg`/
+  `ExploreTabIcon.svg`/`ProfileTabIcon.svg`'s baked `fill` to `currentColor`
+  and pass a `color` prop from `TabBarButton` (react-native-svg's standard
+  tinting mechanism) — confirmed this must be exercised with a real tap
+  (`cliclick` on the booted iOS Simulator window, calibrated against a
+  `simctl io screenshot`), not a deep link: opening an `exp://.../--/<tab>`
+  URL renders that tab's screen content fine but does not drive the Tabs
+  component's own focused-tab bookkeeping the way an actual TabTrigger press
+  does, so the tab bar's own highlighting can't be verified that way. Briefly
+  considered (per user messages mid-session) giving Kriya a permanent-white
+  exception; confirmed via `AskUserQuestion` that Kriya should stay uniform
+  with the other three tabs instead, so no per-tab override exists in the
+  final code. No new dependencies, no backend logic. `tsc --noEmit`,
+  `eslint .` clean; verified visually with real taps on the Kriya and
+  Practice tab buttons in Expo Go on an iOS Simulator.

@@ -16,12 +16,16 @@ import type {SvgProps} from "react-native-svg";
 type TabBarButtonProps = {
   label: string;
   Icon: ComponentType<SvgProps>;
+  iconWidth: number;
+  iconHeight: number;
   isFocused?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
 };
 
 export const TabBarButton = forwardRef<View, TabBarButtonProps>(
-  ({label, Icon, isFocused, onPress}, ref) => {
+  ({label, Icon, iconWidth, iconHeight, isFocused, onPress}, ref) => {
+    const tintColor = isFocused ? colors.accentGold : colors.textOnDark;
+
     return (
       <Pressable
         ref={ref}
@@ -29,10 +33,8 @@ export const TabBarButton = forwardRef<View, TabBarButtonProps>(
         accessibilityRole="tab"
         accessibilityState={{selected: !!isFocused}}
         style={[styles.button, isFocused && styles.buttonActive]}>
-        <Icon width={isFocused ? 17 : 22} height={isFocused ? 23 : 22} />
-        <Text style={[styles.label, isFocused && styles.labelActive]}>
-          {label}
-        </Text>
+        <Icon width={iconWidth} height={iconHeight} color={tintColor} />
+        <Text style={[styles.label, {color: tintColor}]}>{label}</Text>
       </Pressable>
     );
   },
@@ -55,9 +57,5 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.tabLabel,
-    color: colors.textOnDark,
-  },
-  labelActive: {
-    color: colors.textPrimary,
   },
 });
