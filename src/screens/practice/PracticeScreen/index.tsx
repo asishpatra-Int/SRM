@@ -2,6 +2,7 @@ import {useState} from "react";
 
 import {ScrollView, StyleSheet, View} from "react-native";
 
+import {router} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 import {AppText} from "@/components";
@@ -60,6 +61,10 @@ export function PracticeScreen() {
     setAppliedTopicIds(new Set());
   };
 
+  const openContentDetails = (contentId: string) => {
+    router.push({pathname: "/content/[contentId]", params: {contentId}});
+  };
+
   return (
     <View style={styles.root}>
       <PracticeBackground />
@@ -68,7 +73,10 @@ export function PracticeScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}>
           <View style={styles.headerBlock}>
-            <PracticeHeader />
+            <PracticeHeader
+              onBookmarksPress={() => router.push("/bookmarks")}
+              onDownloadsPress={() => router.push("/downloads")}
+            />
             <PracticeSearchRow
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -86,6 +94,7 @@ export function PracticeScreen() {
                 durationLabel={track.durationLabel}
                 image={track.image}
                 isDownloaded={track.isDownloaded}
+                onPress={() => openContentDetails(track.id)}
               />
             ))}
           </View>
@@ -100,6 +109,7 @@ export function PracticeScreen() {
                 durationLabel={track.durationLabel}
                 image={track.image}
                 isDownloaded={track.isDownloaded}
+                onPress={() => openContentDetails(track.id)}
               />
             ))}
           </View>

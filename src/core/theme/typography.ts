@@ -113,4 +113,21 @@ export const typography = {
     fontWeight: "400",
     textAlign: "center",
   },
+  detailTitle: {
+    fontSize: 32,
+    fontWeight: "400",
+    lineHeight: 40,
+    textTransform: "capitalize",
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight: 21,
+    textTransform: "capitalize",
+  },
+  detailBody: {
+    fontSize: 14,
+    fontWeight: "400",
+    lineHeight: 20,
+  },
 } as const satisfies Record<string, TextStyle>;

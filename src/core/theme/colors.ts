@@ -62,4 +62,7 @@ export const colors = {
   noteInputBackground: "rgba(255, 255, 255, 0.08)",
   trackCardBackground: "rgba(255, 255, 255, 0.08)",
   trackActionBackground: "rgba(255, 255, 255, 0.15)",
+  contentDescription: "#F6F4F1",
+  contentGuidanceText: "#DED6EF",
+  pillLabelDark: "#201A2E",
 } as const;

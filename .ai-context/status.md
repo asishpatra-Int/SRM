@@ -1,6 +1,6 @@
 # Project Status Board
 
-_Last updated: 2026-10-09_
+_Last updated: 2026-10-15_
 
 ## Active Specs
 
@@ -67,3 +67,65 @@ _Last updated: 2026-10-09_
   (`getPracticeSessionById`). No new dependencies added. `tsc --noEmit`, `eslint .`,
   `prettier --check`, and an `expo start --web` bundle smoke test (including the new
   dynamic route) are all clean.
+
+### 2026-10-15
+
+- **Off-process exception (continued):** implemented the Practice screen's content
+  details page (Figma node 1589:4018) — same explicit no-spec bypass as the Kriya
+  prototype work above, still mock-data/no-backend, UI-only. Tapping a track card on
+  the Practice screen (`screens/practice/PracticeScreen`) now pushes a new dynamic
+  route `src/app/content/[contentId].tsx` → `screens/practice/
+  PracticeContentDetailsScreen` (back chevron, title/meta/thumbnail row, a "30 Min"
+  playback pill with download/bookmark actions, description copy, and a "Listening
+  ritual" guidance card), reusing the Practice tab's existing hero background/colour
+  tokens and the download/bookmark icons already used by `TrackListItem`. Extended
+  `screens/practice/mockData.ts` with per-track `description` and `pillDurationLabel`
+  fields plus a shared `MOCK_LISTENING_RITUAL` list and a `getPracticeTrackById`
+  lookup (mirrors `getPracticeSessionById` in the Kriya feature group). Added new SVG
+  icon assets (`ChevronLeftIcon`, `PlayTriangleIcon`, `ContentProgressBarIcon`,
+  `LeafIcon`, `MusicIcon`, `SparklesIcon`) downloaded from the Figma frame; reused
+  existing `DownloadIcon`/`BookmarkOutlineIcon` rather than downloading duplicates
+  once comparing their paths confirmed they were the same icons at a different
+  export size. No new dependencies added, no backend/business logic. Verified via
+  `expo export --platform web` (bundles the new route) and by deep-linking into a
+  running Expo Go session on an iOS Simulator — both `exp://.../--/practice` and
+  `exp://.../--/content/<id>` — and screenshotting each; screens match the Figma
+  reference with per-track mock data substituted correctly (thumbnail, title,
+  genre/duration all vary per the tapped track's id). Did not confirm the actual
+  tap gesture on the card (no idb/UI-automation tool available in this environment
+  to drive a touch on the simulator); the `onPress` wiring itself is a single-line
+  `router.push` call, the same pattern already used and working elsewhere in this
+  codebase (`KriyaLandingScreen` → session screen, `KriyaSessionScreen` → mood
+  screen). `tsc --noEmit`, `eslint .`, and `prettier --check` (scoped to the
+  touched files) are all clean.
+
+- **Off-process exception (continued):** implemented the Bookmarks (Figma node
+  1589:4590) and Downloads (node 1589:4801) screens — same bypass as above,
+  mock-data/no-backend, UI-only. Both are new top-level stack routes
+  (`src/app/bookmarks.tsx`, `src/app/downloads.tsx`) wired from the two
+  previously-unwired icon buttons already sitting in `PracticeHeader`
+  (`onBookmarksPress`/`onDownloadsPress` — now `router.push("/bookmarks")` /
+  `"/downloads"`). Added `screens/practice/mockData.ts: isBookmarked` plus
+  `getBookmarkedTracks()`/`getDownloadedTracks()` filters (mirrors
+  `getPracticeTrackById`); Downloads filters `isDownloaded`, which was already
+  true only for the forest-path track, so that screen shows exactly the one
+  item the Figma frame shows.
+  Since both frames need the same back button, hero background, search field,
+  and track-card pattern as a 3rd/4th consumer, promoted
+  `PracticeContentDetailsScreen`'s local `ContentBackButton` up to a new shared
+  `screens/practice/components/` folder (mirrors the existing
+  `screens/kriya/components/` precedent) as `PracticeBackButton`, and added
+  `PracticeHeroBackground` (same hero image/gradient/glow as
+  `PracticeBackground`/`ContentDetailsBackground`), `SavedTracksSearchField`
+  (the search pill minus `PracticeSearchRow`'s filter button — neither frame
+  has one), `SavedTracksHeader`, and `SavedTrackCard` (same content as
+  `TrackListItem` but trailing a white play-circle button instead of a bare
+  triangle) there. `PracticeScreen`, `TrackListItem`, and `PracticeSearchRow`
+  were not otherwise touched. New SVG asset: `PlayCircleIcon` (Figma's
+  "Group 890") — the two download/bookmark/check icons it also needed were
+  already in `assets/svg/` (confirmed by diffing the Figma export's SVG paths
+  against the existing files before reusing them). No new dependencies, no
+  backend/business logic. Verified via `expo export --platform web` (bundles
+  both new routes) and by deep-linking into Expo Go on an iOS Simulator;
+  screenshots match both Figma frames. `tsc --noEmit`, `eslint .`, and
+  `prettier --check` are all clean.

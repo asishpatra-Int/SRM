@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="49" height="7" viewBox="0 0 49 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 882">
+<rect id="Played track" width="49" height="7" rx="3.5" fill="#20132F" fill-opacity="0.4"/>
+<path id="Unplayed track" d="M0 3.5C0 1.567 1.567 0 3.5 0H9.5C11.433 0 13 1.567 13 3.5C13 5.433 11.433 7 9.5 7H3.5C1.567 7 0 5.433 0 3.5Z" fill="#EDB666"/>
+</g>
+</svg>
