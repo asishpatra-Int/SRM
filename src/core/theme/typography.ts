@@ -89,4 +89,28 @@ export const typography = {
     fontWeight: "500",
     letterSpacing: -0.16,
   },
+  pageHeading: {
+    fontSize: 21,
+    fontWeight: "600",
+    lineHeight: 28,
+  },
+  sectionLabel: {
+    fontSize: 18,
+    fontWeight: "400",
+  },
+  trackMeta: {
+    fontSize: 14,
+    fontWeight: "400",
+    lineHeight: 20,
+  },
+  filterChipLabel: {
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight: 21,
+  },
+  resetFiltersLabel: {
+    fontSize: 18,
+    fontWeight: "400",
+    textAlign: "center",
+  },
 } as const satisfies Record<string, TextStyle>;

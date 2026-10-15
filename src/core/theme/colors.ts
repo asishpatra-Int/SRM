@@ -60,4 +60,6 @@ export const colors = {
   // chip component, distinct from the app's CTA gold (accentGold).
   chipBackgroundSelected: "#D89F53",
   noteInputBackground: "rgba(255, 255, 255, 0.08)",
+  trackCardBackground: "rgba(255, 255, 255, 0.08)",
+  trackActionBackground: "rgba(255, 255, 255, 0.15)",
 } as const;
