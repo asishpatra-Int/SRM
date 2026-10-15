@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import {StyleSheet, Text, View} from "react-native";
 
 import {router} from "expo-router";
@@ -9,11 +11,18 @@ import {colors, spacing, typography} from "@/core/theme";
 import {MoodBackground, MoodSlider} from "../components";
 import {MOCK_KRIYA_MOOD} from "../mockData";
 
-function handleNext() {
-  router.push("/improve");
-}
-
 export function KriyaMoodScreen() {
+  // Retained for the lifetime of this screen so "Next" always carries the
+  // latest value the user settled on, even though nothing downstream reads
+  // it yet (mock data, no backend).
+  const [moodValueRatio, setMoodValueRatio] = useState(
+    MOCK_KRIYA_MOOD.valueRatio,
+  );
+
+  const handleNext = () => {
+    router.push("/improve");
+  };
+
   return (
     <View style={styles.root}>
       <MoodBackground />
@@ -25,7 +34,8 @@ export function KriyaMoodScreen() {
         <View style={styles.moodBlock}>
           <Text style={styles.moodLabel}>{MOCK_KRIYA_MOOD.label}</Text>
           <MoodSlider
-            valueRatio={MOCK_KRIYA_MOOD.valueRatio}
+            initialValueRatio={moodValueRatio}
+            onValueChange={setMoodValueRatio}
             lowLabel="Poor"
             highLabel="Excellent"
           />

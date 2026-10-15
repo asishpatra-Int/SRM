@@ -1,6 +1,12 @@
 import {useRef, useState} from "react";
 
-import {StyleSheet, View} from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import {router} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -45,34 +51,43 @@ export function KriyaImproveScreen() {
     <View style={styles.root}>
       <ImproveBackground blurTargetRef={blurTargetRef} />
       <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
-        <AppText style={[typography.heading, styles.heading]}>
-          {"Where can\nI improve?"}
-        </AppText>
-        <View style={styles.chipGroup}>
-          {MOCK_IMPROVEMENT_OPTIONS.map(option => (
-            <ImprovementChip
-              key={option.id}
-              label={option.label}
-              selected={selectedIds.has(option.id)}
-              onPress={() => toggleOption(option.id)}
-              blurTarget={blurTargetRef}
-            />
-          ))}
-        </View>
-        <View style={styles.spacer} />
-        <View style={styles.bottomBlock}>
-          <NoteInput
-            value={note}
-            onChangeText={setNote}
-            blurTarget={blurTargetRef}
-          />
-          <ShareCheckbox
-            label="Share with SRM Team"
-            checked={shareWithTeam}
-            onToggle={() => setShareWithTeam(current => !current)}
-          />
-          <AppButton label="Next" onPress={handleNext} />
-        </View>
+        <KeyboardAvoidingView
+          style={styles.flex}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}>
+            <AppText style={[typography.heading, styles.heading]}>
+              {"Where can\nI improve?"}
+            </AppText>
+            <View style={styles.chipGroup}>
+              {MOCK_IMPROVEMENT_OPTIONS.map(option => (
+                <ImprovementChip
+                  key={option.id}
+                  label={option.label}
+                  selected={selectedIds.has(option.id)}
+                  onPress={() => toggleOption(option.id)}
+                  blurTarget={blurTargetRef}
+                />
+              ))}
+            </View>
+            <View style={styles.spacer} />
+            <View style={styles.bottomBlock}>
+              <NoteInput
+                value={note}
+                onChangeText={setNote}
+                blurTarget={blurTargetRef}
+              />
+              <ShareCheckbox
+                label="Share with SRM Team"
+                checked={shareWithTeam}
+                onToggle={() => setShareWithTeam(current => !current)}
+              />
+              <AppButton label="Next" onPress={handleNext} />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
@@ -84,6 +99,12 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
     paddingHorizontal: spacing.xxl,
     paddingTop: 40,
     paddingBottom: spacing.xxl,
@@ -102,6 +123,7 @@ const styles = StyleSheet.create({
   },
   spacer: {
     flex: 1,
+    minHeight: spacing.xxl,
   },
   bottomBlock: {
     width: "100%",

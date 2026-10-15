@@ -154,3 +154,62 @@ _Last updated: 2026-10-15_
   final code. No new dependencies, no backend logic. `tsc --noEmit`,
   `eslint .` clean; verified visually with real taps on the Kriya and
   Practice tab buttons in Expo Go on an iOS Simulator.
+
+- **Off-process exception (continued):** fixed the mood/feeling check-in
+  slider (`screens/kriya/components/MoodSlider.tsx`, shared by
+  `KriyaMoodScreen` and `KriyaFeelingScreen`) on user request — it previously
+  rendered the thumb at a fixed `left: {ratio}%` with no touch handling at
+  all (not draggable, not tappable), and that positioning let the thumb's own
+  half-width overhang past the track edges at ratio 0/1. Rewrote it with
+  `react-native-gesture-handler`'s `Gesture.Pan()` + `react-native-reanimated`
+  shared values (both already project dependencies, already used elsewhere —
+  no new ones added): a single Pan gesture (`minDistance(0)`) reads each
+  touch's absolute `event.x` so one code path covers both tapping anywhere on
+  the track and dragging, clamps the thumb's pixel position every frame to
+  `[0, trackWidth - THUMB_SIZE]` (accounts for the thumb's own radius, so it
+  always stays fully inside the track), and only reports the committed ratio
+  back to JS via `scheduleOnRN` (reanimated 4's replacement for the now
+  `@deprecated` `runOnJS`). `MoodSlider` changed from a controlled
+  `valueRatio` prop to an uncontrolled `initialValueRatio` +
+  `onValueChange(ratio)` — it now owns the live drag position itself instead
+  of round-tripping every touch frame through the parent's React state, so
+  `KriyaMoodScreen`/`KriyaFeelingScreen` each just keep a `useState` to retain
+  the latest value (nothing downstream reads it yet — mock data, no backend).
+  Also added `GestureHandlerRootView` to `src/app/_layout.tsx` (required by
+  `GestureDetector`, wasn't set up anywhere in the app before) and memoized
+  the `Gesture.Pan()` builder with `useMemo` — building a fresh one on every
+  render (which happens on every `onValueChange` during a drag unless
+  memoized) left the native gesture handler in a state where a *second* drag
+  after the first one completed silently failed to activate; this was by far
+  the trickiest bug and only surfaced through actual on-device touch testing,
+  not code review. Verified via real drags on a booted iOS Simulator
+  (`cliclick`, screen coordinates derived from analyzing `simctl io
+  screenshot` pixels rather than guessed): confirmed correct centered initial
+  position and the right-boundary clamp holding with zero overshoot even when
+  the drag gesture continued past the track's edge. Note for future sessions
+  testing touch gestures in this environment: the Simulator window's
+  reported AppleScript position/size excludes its title bar, and this
+  sandbox's foreground app silently reverts to another window (observed:
+  Chrome) between shell commands, so re-`activate` Simulator and reconfirm
+  frontmost status immediately before every `cliclick`, and expect to
+  recalibrate coordinates (e.g. by self-calibrating off a known UI element's
+  measured on-screen position, not the window frame) after any simulator
+  restart. `tsc --noEmit`, `eslint .`, `prettier --check` clean.
+
+- **Off-process exception (continued):** on user request, made
+  `KriyaImproveScreen` scrollable (`ScrollView` inside a
+  `KeyboardAvoidingView`, `behavior: "padding"` on iOS / `"height"` on
+  Android) so the note `TextInput` and the "Next" button stay reachable once
+  the keyboard is up, instead of being statically laid out with no way to
+  scroll past the keyboard. Also changed `NoteInput`'s "Note:" from the
+  `TextInput`'s `placeholder` (which disappears the moment the user types,
+  and — per the user's report — reads as lower-contrast than the screen's
+  other solid-white labels even at the same explicit color, sitting as it
+  does on the lighter blurred glass panel) to a persistent `Text` label above
+  the input, styled with the same `typography.noteLabel` + `colors.textPrimary`
+  already used for the typed text itself. `tsc --noEmit`, `eslint .`,
+  `prettier --check` clean; visually confirmed the screen's layout is
+  otherwise unchanged via a fresh Expo Go relaunch on the iOS Simulator
+  (did not confirm the keyboard-avoidance itself live, for the same
+  touch-testing environment reasons noted above — focusing the TextInput
+  needs a real tap).

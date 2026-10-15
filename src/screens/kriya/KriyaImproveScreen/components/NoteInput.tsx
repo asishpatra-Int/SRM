@@ -1,6 +1,6 @@
 import type {RefObject} from "react";
 
-import {StyleSheet, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput, View} from "react-native";
 
 import {BlurView} from "expo-blur";
 
@@ -16,6 +16,10 @@ type NoteInputProps = {
   blurTarget?: RefObject<View | null>;
 };
 
+// "Note:" is a persistent label, not the TextInput's placeholder — a
+// placeholder disappears the moment the user starts typing (and reads as
+// faded even at full color, next to the solid-white labels elsewhere on this
+// screen), neither of which is what a section label should do.
 export function NoteInput({value, onChangeText, blurTarget}: NoteInputProps) {
   return (
     <BlurView
@@ -24,11 +28,10 @@ export function NoteInput({value, onChangeText, blurTarget}: NoteInputProps) {
       blurMethod="dimezisBlurView"
       blurTarget={blurTarget}
       style={styles.box}>
+      <Text style={styles.label}>Note:</Text>
       <TextInput
         value={value}
         onChangeText={onChangeText}
-        placeholder="Note:"
-        placeholderTextColor={colors.textPrimary}
         multiline
         textAlignVertical="top"
         style={styles.input}
@@ -48,6 +51,11 @@ const styles = StyleSheet.create({
     borderColor: colors.glassBorder,
     backgroundColor: colors.noteInputBackground,
     overflow: "hidden",
+    gap: spacing.xs,
+  },
+  label: {
+    ...typography.noteLabel,
+    color: colors.textPrimary,
   },
   input: {
     flex: 1,
