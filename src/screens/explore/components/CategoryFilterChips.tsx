@@ -9,7 +9,7 @@ import HeartIcon from "@/assets/svg/explore/HeartIcon.svg";
 import VideoIcon from "@/assets/svg/explore/VideoIcon.svg";
 import {colors, radii, spacing, typography} from "@/core/theme";
 
-import type {ExploreCategoryId} from "../../mockData";
+import type {ExploreCategoryId} from "../mockData";
 import type {SvgProps} from "react-native-svg";
 
 const CATEGORIES: {

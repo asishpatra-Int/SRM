@@ -6,8 +6,9 @@ import {colors} from "@/core/theme";
 
 // Same ambient glow image the Latest Blogs rows reuse as a thumbnail
 // background — blown up and offset here, exactly as Figma has it, to wash
-// the whole screen in a warm cream/lavender tint instead of a flat white
-// page background.
+// every Explore-family screen (Explore, Videos, Bhakti, Bhakti Album,
+// Events) in a warm cream/lavender tint instead of a flat white page
+// background.
 export function ExploreBackground() {
   return (
     <GradientImageBackground

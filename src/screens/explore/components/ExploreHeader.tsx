@@ -6,19 +6,21 @@ import {AppText} from "@/components";
 import {colors, typography} from "@/core/theme";
 
 type ExploreHeaderProps = {
+  title: string;
   onBookmarksPress?: () => void;
   onDownloadsPress?: () => void;
 };
 
+// Shared by every Explore-family screen (Explore, Videos, Bhakti, Events) —
+// only the title text changes.
 export function ExploreHeader({
+  title,
   onBookmarksPress,
   onDownloadsPress,
 }: ExploreHeaderProps) {
   return (
     <View style={styles.row}>
-      <AppText style={[typography.pageHeading, styles.title]}>
-        Explore SRM
-      </AppText>
+      <AppText style={[typography.pageHeading, styles.title]}>{title}</AppText>
       <View style={styles.actions}>
         <Pressable
           style={styles.actionButton}

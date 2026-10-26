@@ -89,4 +89,5 @@ export const colors = {
     "rgba(255, 255, 255, 0)",
   ] as const,
   exploreGoldAccentGlow: "rgba(237, 182, 102, 0.15)",
+  exploreBackButtonBackground: "rgba(255, 255, 255, 0.31)",
 } as const;

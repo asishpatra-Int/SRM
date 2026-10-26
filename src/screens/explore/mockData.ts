@@ -9,11 +9,16 @@ import exploreBlogGarbaThumb from "@/assets/explore-blog-garba-thumb.png";
 import exploreEventGitaWisdom1 from "@/assets/explore-event-gita-wisdom-1.png";
 import exploreEventGitaWisdom2 from "@/assets/explore-event-gita-wisdom-2.png";
 import exploreEventGitaWisdom3 from "@/assets/explore-event-gita-wisdom-3.png";
+import exploreEventGitaWisdom4 from "@/assets/explore-event-gita-wisdom-4.png";
+import exploreEventGitaWisdom5 from "@/assets/explore-event-gita-wisdom-5.png";
 import exploreFeaturedBanner from "@/assets/explore-featured-banner.png";
 import exploreGuruVoiceArtwork from "@/assets/explore-guru-voice-artwork.png";
 import exploreRohaniyatArtwork from "@/assets/explore-rohaniyat-artwork.png";
 import exploreVideoGuruThumb from "@/assets/explore-video-guru-thumb.png";
 import exploreVideoRohaniyatThumb from "@/assets/explore-video-rohaniyat-thumb.png";
+import exploreVideoThumb3 from "@/assets/explore-video-thumb-3.png";
+import exploreVideoThumb4 from "@/assets/explore-video-thumb-4.png";
+import exploreVideoThumb5 from "@/assets/explore-video-thumb-5.png";
 
 export type ExploreCategoryId =
   | "all"
@@ -33,44 +38,74 @@ export const MOCK_FEATURED_ITEMS: FeaturedItemMock[] = [
   {id: "bhagavad-gita-talk-3", image: exploreFeaturedBanner},
 ];
 
+export type BhaktiAlbumTrackMock = {
+  id: string;
+  title: string;
+};
+
+const MOCK_ALBUM_TRACKS: BhaktiAlbumTrackMock[] = [
+  {id: "sab-ka-mangal", title: "Sab Ka Mangal"},
+  {id: "a-prayer-for-all", title: "A Prayer for All"},
+  {id: "in-gratitude", title: "In Gratitude"},
+  {id: "the-light-within", title: "The Light Within"},
+  {id: "a-moment-of-stillness", title: "A Moment of Stillness"},
+  {id: "peace-in-every-heart", title: "Peace in Every Heart"},
+];
+
 export type BhaktiTrackMock = {
   id: string;
   title: string;
+  fullTitle: string;
   subtitle: string;
   trackCountLabel: string;
   artwork: number;
+  tracks: BhaktiAlbumTrackMock[];
 };
 
 export const MOCK_LATEST_BHAKTI: BhaktiTrackMock[] = [
   {
     id: "sab-ka-mangal-1",
     title: "Sab Ka Mangal",
+    fullTitle: "Sab Ka Mangal (feat. Sri Guru)",
     subtitle: "Voices of SRM",
     trackCountLabel: "6 Bhakti",
     artwork: exploreBhaktiArtwork1,
+    tracks: MOCK_ALBUM_TRACKS,
   },
   {
     id: "sab-ka-mangal-2",
     title: "Sab Ka Mangal",
+    fullTitle: "Sab Ka Mangal (feat. Sri Guru)",
     subtitle: "Voices of SRM",
     trackCountLabel: "6 Bhakti",
     artwork: exploreBhaktiArtwork2,
+    tracks: MOCK_ALBUM_TRACKS,
   },
   {
     id: "sab-ka-mangal-3",
     title: "Sab Ka Mangal",
+    fullTitle: "Sab Ka Mangal (feat. Sri Guru)",
     subtitle: "Voices of SRM",
     trackCountLabel: "6 Bhakti",
     artwork: exploreBhaktiArtwork3,
+    tracks: MOCK_ALBUM_TRACKS,
   },
   {
     id: "sab-ka-mangal-4",
     title: "Sab Ka Mangal",
+    fullTitle: "Sab Ka Mangal (feat. Sri Guru)",
     subtitle: "Voices of SRM",
     trackCountLabel: "6 Bhakti",
     artwork: exploreBhaktiArtwork4,
+    tracks: MOCK_ALBUM_TRACKS,
   },
 ];
+
+export function getBhaktiAlbumById(id: string | undefined): BhaktiTrackMock {
+  return (
+    MOCK_LATEST_BHAKTI.find(album => album.id === id) ?? MOCK_LATEST_BHAKTI[0]
+  );
+}
 
 export type RandomTrackMock = {
   id: string;
@@ -116,6 +151,46 @@ export const MOCK_UPCOMING_EVENTS: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "Oct 24, 7 AM",
     background: exploreEventGitaWisdom3,
+  },
+];
+
+export type VideoListItemMock = {
+  id: string;
+  title: string;
+  dateLabel: string;
+  thumbnail: number;
+};
+
+export const MOCK_VIDEO_LIST: VideoListItemMock[] = [
+  {
+    id: "video-1",
+    title: "Rohaniyat",
+    dateLabel: "9 October 2026",
+    thumbnail: exploreVideoRohaniyatThumb,
+  },
+  {
+    id: "video-2",
+    title: "Rohaniyat",
+    dateLabel: "9 October 2026",
+    thumbnail: exploreVideoGuruThumb,
+  },
+  {
+    id: "video-3",
+    title: "Rohaniyat",
+    dateLabel: "9 October 2026",
+    thumbnail: exploreVideoThumb3,
+  },
+  {
+    id: "video-4",
+    title: "Rohaniyat",
+    dateLabel: "9 October 2026",
+    thumbnail: exploreVideoThumb4,
+  },
+  {
+    id: "video-5",
+    title: "Rohaniyat",
+    dateLabel: "9 October 2026",
+    thumbnail: exploreVideoThumb5,
   },
 ];
 
@@ -171,5 +246,55 @@ export const MOCK_LATEST_BLOGS: BlogPostMock[] = [
     title: "A Rose Without Thorns",
     thumbnail: exploreBlogAumBg,
     hasLogoBadge: true,
+  },
+];
+
+// The Events screen's own full lists — kept separate from the 3-item
+// teaser row above so the Explore screen's existing preview is untouched.
+export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
+  {
+    id: "gita-wisdom-upcoming-1",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 October, 7 PM",
+    background: exploreEventGitaWisdom1,
+  },
+  {
+    id: "gita-wisdom-upcoming-2",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 December, 7 PM",
+    background: exploreEventGitaWisdom3,
+  },
+  {
+    id: "gita-wisdom-upcoming-3",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 October, 7 PM",
+    background: exploreEventGitaWisdom4,
+  },
+  {
+    id: "gita-wisdom-upcoming-4",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 December, 7 PM",
+    background: exploreEventGitaWisdom5,
+  },
+];
+
+export const MOCK_EVENTS_PAST: UpcomingEventMock[] = [
+  {
+    id: "gita-wisdom-past-1",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 October, 7 PM",
+    background: exploreEventGitaWisdom1,
+  },
+  {
+    id: "gita-wisdom-past-2",
+    title: "Gita Wisdom",
+    location: "Delhi",
+    dateTimeLabel: "12 December, 7 PM",
+    background: exploreEventGitaWisdom1,
   },
 ];

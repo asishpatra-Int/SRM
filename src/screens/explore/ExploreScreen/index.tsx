@@ -2,13 +2,22 @@ import {useState} from "react";
 
 import {ScrollView, StyleSheet, View} from "react-native";
 
+import {router} from "expo-router";
 import {StatusBar} from "expo-status-bar";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 import {spacing} from "@/core/theme";
 
 import {
-  type ExploreCategoryId,
+  BhaktiTrackRow,
+  CategoryFilterChips,
+  EventCard,
+  ExploreBackground,
+  ExploreHeader,
+  ExploreSearchBar,
+  SectionHeading,
+} from "../components";
+import {
   MOCK_FEATURED_ITEMS,
   MOCK_LATEST_BHAKTI,
   MOCK_LATEST_BLOGS,
@@ -16,25 +25,21 @@ import {
   MOCK_RANDOM_PLAY,
   MOCK_UPCOMING_EVENTS,
 } from "../mockData";
+import {navigateToExploreCategory} from "../navigation";
 
 import {
-  BhaktiTrackRow,
   BlogRow,
-  CategoryFilterChips,
-  EventCard,
-  ExploreBackground,
-  ExploreHeader,
-  ExploreSearchBar,
   FeaturedCarousel,
   RandomTrackCard,
-  SectionHeading,
   VideoThumbCard,
 } from "./components";
 
 export function ExploreScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] =
-    useState<ExploreCategoryId>("all");
+
+  const openAlbum = (albumId: string) => {
+    router.push({pathname: "/bhakti/[albumId]", params: {albumId}});
+  };
 
   return (
     <View style={styles.root}>
@@ -46,14 +51,14 @@ export function ExploreScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}>
           <View style={styles.headerBlock}>
-            <ExploreHeader />
+            <ExploreHeader title="Explore SRM" />
             <ExploreSearchBar
               value={searchQuery}
               onChangeText={setSearchQuery}
             />
             <CategoryFilterChips
-              selectedId={selectedCategory}
-              onSelect={setSelectedCategory}
+              selectedId="all"
+              onSelect={category => navigateToExploreCategory("all", category)}
             />
           </View>
 
@@ -63,7 +68,10 @@ export function ExploreScreen() {
           </View>
 
           <View style={styles.section}>
-            <SectionHeading title="Latest Bhakti" />
+            <SectionHeading
+              title="Latest Bhakti"
+              onPress={() => router.push("/bhakti")}
+            />
             <View style={styles.trackList}>
               {MOCK_LATEST_BHAKTI.map(track => (
                 <BhaktiTrackRow
@@ -72,6 +80,7 @@ export function ExploreScreen() {
                   subtitle={track.subtitle}
                   trackCountLabel={track.trackCountLabel}
                   artwork={track.artwork}
+                  onPress={() => openAlbum(track.id)}
                 />
               ))}
             </View>
@@ -91,7 +100,10 @@ export function ExploreScreen() {
           </View>
 
           <View style={styles.section}>
-            <SectionHeading title="Upcoming Events" />
+            <SectionHeading
+              title="Upcoming Events"
+              onPress={() => router.push("/events")}
+            />
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -109,7 +121,10 @@ export function ExploreScreen() {
           </View>
 
           <View style={styles.section}>
-            <SectionHeading title="Latest Videos" />
+            <SectionHeading
+              title="Latest Videos"
+              onPress={() => router.push("/videos")}
+            />
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
