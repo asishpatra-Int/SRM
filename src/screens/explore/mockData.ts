@@ -6,11 +6,13 @@ import exploreBhaktiArtwork3 from "@/assets/explore-bhakti-artwork-3.png";
 import exploreBhaktiArtwork4 from "@/assets/explore-bhakti-artwork-4.png";
 import exploreBlogAumBg from "@/assets/explore-blog-aum-bg.png";
 import exploreBlogGarbaThumb from "@/assets/explore-blog-garba-thumb.png";
+import exploreBlogWhispersThumb from "@/assets/explore-blog-whispers-thumb.png";
 import exploreEventGitaWisdom1 from "@/assets/explore-event-gita-wisdom-1.png";
 import exploreEventGitaWisdom2 from "@/assets/explore-event-gita-wisdom-2.png";
 import exploreEventGitaWisdom3 from "@/assets/explore-event-gita-wisdom-3.png";
 import exploreEventGitaWisdom4 from "@/assets/explore-event-gita-wisdom-4.png";
 import exploreEventGitaWisdom5 from "@/assets/explore-event-gita-wisdom-5.png";
+import exploreEventHero from "@/assets/explore-event-hero.png";
 import exploreFeaturedBanner from "@/assets/explore-featured-banner.png";
 import exploreGuruVoiceArtwork from "@/assets/explore-guru-voice-artwork.png";
 import exploreRohaniyatArtwork from "@/assets/explore-rohaniyat-artwork.png";
@@ -26,6 +28,10 @@ export type ExploreCategoryId =
   | "bhakti"
   | "events"
   | "blogs";
+
+// The Event Details screen's hero banner — one mock photo shared by every
+// event, exactly as Figma has it.
+export const EVENT_DETAILS_HERO_IMAGE = exploreEventHero;
 
 export type FeaturedItemMock = {
   id: string;
@@ -128,7 +134,12 @@ export type UpcomingEventMock = {
   location: string;
   dateTimeLabel: string;
   background: number;
+  fullLocation?: string;
+  description?: string;
 };
+
+const MOCK_EVENT_DESCRIPTION =
+  "Here is an introduction to SwaRaj Kriya. It helps you understand the use and benefits of the Kriya in the short and long run. Once you are ready, send us a message to find out how you can start learning the Kriya.";
 
 export const MOCK_UPCOMING_EVENTS: UpcomingEventMock[] = [
   {
@@ -137,6 +148,8 @@ export const MOCK_UPCOMING_EVENTS: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 October, 7 PM",
     background: exploreEventGitaWisdom1,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-december",
@@ -144,6 +157,8 @@ export const MOCK_UPCOMING_EVENTS: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 December, 7 PM",
     background: exploreEventGitaWisdom2,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-october-24",
@@ -151,6 +166,8 @@ export const MOCK_UPCOMING_EVENTS: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "Oct 24, 7 AM",
     background: exploreEventGitaWisdom3,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
 ];
 
@@ -249,6 +266,79 @@ export const MOCK_LATEST_BLOGS: BlogPostMock[] = [
   },
 ];
 
+const MOCK_BLOG_BODY = [
+  "The list of things that the ego dislikes runs miles long. Near the top of that list sits one act the ego finds almost unbearable: admitting someone else could be right (or could also be right). Admitting “you are right” is a powerful way to tame the ego.",
+  "However, the urge to explain our perspective is natural and often necessary. There are two ways to do this:",
+  "“You are right, but I think…”",
+];
+
+export type BlogPostDetailMock = BlogPostMock & {
+  category: string;
+  body: string[];
+};
+
+// The Blog Listing/Details screens' own full list — kept separate from the
+// 3-item teaser row above so the Explore screen's existing preview is
+// untouched.
+export const MOCK_BLOG_LIST: BlogPostDetailMock[] = [
+  {
+    id: "the-other-garba",
+    dateLabel: "12 October 2026",
+    title: "The Other Garba",
+    thumbnail: exploreBlogGarbaThumb,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+  {
+    id: "someday",
+    dateLabel: "9 October 2026",
+    title: "Someday",
+    thumbnail: exploreBlogAumBg,
+    hasLogoBadge: true,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+  {
+    id: "a-rose-without-thorns",
+    dateLabel: "5 October 2026",
+    title: "A Rose Without Thorns",
+    thumbnail: exploreBlogAumBg,
+    hasLogoBadge: true,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+  {
+    id: "whispers-in-the-wind",
+    dateLabel: "30 September 2026",
+    title: "Whispers in the Wind",
+    thumbnail: exploreBlogWhispersThumb,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+  {
+    id: "beneath-the-silent-oak",
+    dateLabel: "27 September 2026",
+    title: "Beneath the Silent Oak",
+    thumbnail: exploreBlogAumBg,
+    hasLogoBadge: true,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+  {
+    id: "echoes-of-forgotten-dreams",
+    dateLabel: "22 September 2026",
+    title: "Echoes of Forgotten Dreams",
+    thumbnail: exploreBlogAumBg,
+    hasLogoBadge: true,
+    category: "Inspiring",
+    body: MOCK_BLOG_BODY,
+  },
+];
+
+export function getBlogPostById(id: string | undefined): BlogPostDetailMock {
+  return MOCK_BLOG_LIST.find(post => post.id === id) ?? MOCK_BLOG_LIST[0];
+}
+
 // The Events screen's own full lists — kept separate from the 3-item
 // teaser row above so the Explore screen's existing preview is untouched.
 export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
@@ -258,6 +348,8 @@ export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 October, 7 PM",
     background: exploreEventGitaWisdom1,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-upcoming-2",
@@ -265,6 +357,8 @@ export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 December, 7 PM",
     background: exploreEventGitaWisdom3,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-upcoming-3",
@@ -272,6 +366,8 @@ export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 October, 7 PM",
     background: exploreEventGitaWisdom4,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-upcoming-4",
@@ -279,6 +375,8 @@ export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 December, 7 PM",
     background: exploreEventGitaWisdom5,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
 ];
 
@@ -289,6 +387,8 @@ export const MOCK_EVENTS_PAST: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 October, 7 PM",
     background: exploreEventGitaWisdom1,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
   {
     id: "gita-wisdom-past-2",
@@ -296,5 +396,17 @@ export const MOCK_EVENTS_PAST: UpcomingEventMock[] = [
     location: "Delhi",
     dateTimeLabel: "12 December, 7 PM",
     background: exploreEventGitaWisdom1,
+    fullLocation: "Shah Auditorium, Delhi",
+    description: MOCK_EVENT_DESCRIPTION,
   },
 ];
+
+const ALL_EVENTS = [
+  ...MOCK_UPCOMING_EVENTS,
+  ...MOCK_EVENTS_UPCOMING,
+  ...MOCK_EVENTS_PAST,
+];
+
+export function getEventById(id: string | undefined): UpcomingEventMock {
+  return ALL_EVENTS.find(event => event.id === id) ?? ALL_EVENTS[0];
+}

@@ -2,14 +2,14 @@ import {type Href, router} from "expo-router";
 
 import type {ExploreCategoryId} from "./mockData";
 
-// Routes for the category chips shared by Explore, Videos, Bhakti and
-// Events. "blogs" has no screen yet — selecting it stays a no-op, same as
-// it already was on the Explore screen.
+// Routes for the category chips shared by Explore, Videos, Bhakti, Events
+// and Blog.
 const CATEGORY_ROUTES: Partial<Record<ExploreCategoryId, Href>> = {
   all: "/explore",
   videos: "/videos",
   bhakti: "/bhakti",
   events: "/events",
+  blogs: "/blog",
 };
 
 export function navigateToExploreCategory(

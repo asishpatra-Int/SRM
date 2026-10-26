@@ -90,4 +90,7 @@ export const colors = {
   ] as const,
   exploreGoldAccentGlow: "rgba(237, 182, 102, 0.15)",
   exploreBackButtonBackground: "rgba(255, 255, 255, 0.31)",
+  exploreGlassCardBackground: "rgba(255, 255, 255, 0.37)",
+  exploreBadgeBackground: "rgba(160, 160, 160, 0.12)",
+  exploreBadgeText: "#000001",
 } as const;

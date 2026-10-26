@@ -1,4 +1,5 @@
 export {BhaktiTrackRow} from "./BhaktiTrackRow";
+export {BlogRow} from "./BlogRow";
 export {CategoryFilterChips} from "./CategoryFilterChips";
 export {EventCard} from "./EventCard";
 export {ExploreBackground} from "./ExploreBackground";

@@ -2,6 +2,7 @@ import {useState} from "react";
 
 import {ScrollView, StyleSheet, View} from "react-native";
 
+import {router} from "expo-router";
 import {StatusBar} from "expo-status-bar";
 import {SafeAreaView} from "react-native-safe-area-context";
 
@@ -20,6 +21,10 @@ import {navigateToExploreCategory} from "../navigation";
 
 export function EventsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const openEvent = (eventId: string) => {
+    router.push({pathname: "/events/[eventId]", params: {eventId}});
+  };
 
   return (
     <View style={styles.root}>
@@ -53,6 +58,7 @@ export function EventsScreen() {
                   location={event.location}
                   dateTimeLabel={event.dateTimeLabel}
                   background={event.background}
+                  onPress={() => openEvent(event.id)}
                 />
               ))}
             </View>
@@ -68,6 +74,7 @@ export function EventsScreen() {
                   location={event.location}
                   dateTimeLabel={event.dateTimeLabel}
                   background={event.background}
+                  onPress={() => openEvent(event.id)}
                 />
               ))}
             </View>

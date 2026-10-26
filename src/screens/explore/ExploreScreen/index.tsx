@@ -10,6 +10,7 @@ import {spacing} from "@/core/theme";
 
 import {
   BhaktiTrackRow,
+  BlogRow,
   CategoryFilterChips,
   EventCard,
   ExploreBackground,
@@ -27,18 +28,21 @@ import {
 } from "../mockData";
 import {navigateToExploreCategory} from "../navigation";
 
-import {
-  BlogRow,
-  FeaturedCarousel,
-  RandomTrackCard,
-  VideoThumbCard,
-} from "./components";
+import {FeaturedCarousel, RandomTrackCard, VideoThumbCard} from "./components";
 
 export function ExploreScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const openAlbum = (albumId: string) => {
     router.push({pathname: "/bhakti/[albumId]", params: {albumId}});
+  };
+
+  const openEvent = (eventId: string) => {
+    router.push({pathname: "/events/[eventId]", params: {eventId}});
+  };
+
+  const openBlog = (blogId: string) => {
+    router.push({pathname: "/blog/[blogId]", params: {blogId}});
   };
 
   return (
@@ -115,6 +119,7 @@ export function ExploreScreen() {
                   location={event.location}
                   dateTimeLabel={event.dateTimeLabel}
                   background={event.background}
+                  onPress={() => openEvent(event.id)}
                 />
               ))}
             </ScrollView>
@@ -140,7 +145,10 @@ export function ExploreScreen() {
           </View>
 
           <View style={styles.section}>
-            <SectionHeading title="Latest Blogs" />
+            <SectionHeading
+              title="Latest Blogs"
+              onPress={() => router.push("/blog")}
+            />
             <View style={styles.blogList}>
               {MOCK_LATEST_BLOGS.map(blog => (
                 <BlogRow
@@ -149,6 +157,7 @@ export function ExploreScreen() {
                   title={blog.title}
                   thumbnail={blog.thumbnail}
                   hasLogoBadge={blog.hasLogoBadge}
+                  onPress={() => openBlog(blog.id)}
                 />
               ))}
             </View>
