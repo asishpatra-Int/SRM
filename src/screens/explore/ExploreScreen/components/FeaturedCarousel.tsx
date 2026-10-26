@@ -30,7 +30,7 @@ export function FeaturedCarousel({items}: FeaturedCarouselProps) {
     if (items.length <= 1) {
       return;
     }
-    const timer = setInterval(() => {
+    const timer = globalThis.setInterval(() => {
       if (isDragging.current) {
         return;
       }
@@ -40,7 +40,7 @@ export function FeaturedCarousel({items}: FeaturedCarouselProps) {
         return next;
       });
     }, AUTO_SCROLL_INTERVAL_MS);
-    return () => clearInterval(timer);
+    return () => globalThis.clearInterval(timer);
   }, [items.length, cardWidth]);
 
   const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
