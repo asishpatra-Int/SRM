@@ -65,4 +65,28 @@ export const colors = {
   contentDescription: "#F6F4F1",
   contentGuidanceText: "#DED6EF",
   pillLabelDark: "#201A2E",
+  // Explore tab — the only screen with a light theme; every other tab is
+  // the dark `background` purple above.
+  exploreBackground: "#FFFFFF",
+  exploreTextMuted: "#6B6870",
+  exploreTextFaint: "#E1E1E1",
+  exploreIconDark: "#141313",
+  exploreSearchBackground: "#E3D8C8",
+  exploreChipInactiveBackground: "rgba(255, 255, 255, 0.6)",
+  exploreDivider: "rgba(107, 104, 112, 0.18)",
+  exploreGlassButtonBackground: "rgba(37, 37, 37, 0.05)",
+  exploreEventOverlayGradient: [
+    "rgba(255, 255, 255, 0)",
+    "rgba(137, 118, 165, 0.502)",
+    "rgba(70, 40, 114, 0.79)",
+    "rgba(37, 2, 89, 0.93)",
+  ] as const,
+  exploreEventOverlayLocations: [0.456, 0.605, 0.753, 0.948] as const,
+  // No-op gradient — GradientImageBackground requires one, but the Explore
+  // background image is already the full effect; no dark overlay on top.
+  exploreBackgroundGradient: [
+    "rgba(255, 255, 255, 0)",
+    "rgba(255, 255, 255, 0)",
+  ] as const,
+  exploreGoldAccentGlow: "rgba(237, 182, 102, 0.15)",
 } as const;
