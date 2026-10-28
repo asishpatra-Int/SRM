@@ -130,4 +130,25 @@ export const typography = {
     fontWeight: "400",
     lineHeight: 20,
   },
+  splashWelcome: {
+    fontSize: 32,
+    fontWeight: "400",
+    lineHeight: 40,
+    letterSpacing: -0.32,
+    textAlign: "center",
+  },
+  onboardingBody: {
+    fontSize: 21,
+    fontWeight: "400",
+    lineHeight: 28,
+    textAlign: "center",
+  },
+  inputText: {
+    fontSize: 18,
+    fontWeight: "400",
+  },
+  dividerLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+  },
 } as const satisfies Record<string, TextStyle>;

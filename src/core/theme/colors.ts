@@ -93,4 +93,28 @@ export const colors = {
   exploreGlassCardBackground: "rgba(255, 255, 255, 0.37)",
   exploreBadgeBackground: "rgba(160, 160, 160, 0.12)",
   exploreBadgeText: "#000001",
+  // Auth flow (splash → onboarding → login → OTP) — a light lavender theme.
+  // Fallback only: every auth screen is fully covered by its background art.
+  authBackground: "#F1E9EE",
+  transparent: "transparent",
+  authAccent: "#47348C",
+  authTextDark: "#141313",
+  authTextMuted: "#6B6870",
+  authTextBlack: "#000001",
+  authDividerLabel: "#201A2E",
+  // Figma divider line: stroke #5F5A5A at 17% opacity.
+  authDividerLine: "rgba(95, 90, 90, 0.17)",
+  authInputBackground: "rgba(255, 255, 255, 0.67)",
+  authSocialButtonBackground: "rgba(255, 255, 255, 0.99)",
+  authErrorText: "#C0392B",
+  // Onboarding card: the Kriya card hues at 0.79 alpha. Figma's last stop
+  // sits at 122% of the gradient line; the line is stretched in the card
+  // (see OnboardingCard) so these locations are the 0–1 rescaled values.
+  authCardGradient: [
+    "rgba(37, 2, 89, 0.79)",
+    "rgba(53, 25, 104, 0.79)",
+    "rgba(86, 72, 134, 0.79)",
+    "rgba(237, 182, 102, 0.79)",
+  ] as const,
+  authCardGradientLocations: [0.1938, 0.4348, 0.6762, 1] as const,
 } as const;

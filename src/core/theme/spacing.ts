@@ -16,4 +16,5 @@ export const radii = {
   sheetTop: 20,
   ctaPill: 53,
   chip: 48,
+  input: 8,
 } as const;

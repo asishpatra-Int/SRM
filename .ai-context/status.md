@@ -213,3 +213,40 @@ _Last updated: 2026-10-15_
   (did not confirm the keyboard-avoidance itself live, for the same
   touch-testing environment reasons noted above — focusing the TextInput
   needs a real tap).
+
+### 2026-10-28
+
+- **Off-process exception (continued):** implemented the app-launch auth flow
+  on explicit user request — Splash animation (Figma 1577:261 → 285 → 311,
+  one screen, three stages) → Onboarding (1580:820) → Login (1580:882) → OTP
+  (1580:971) → existing Kriya home tabs. Same no-spec bypass as above:
+  UI-only, mock data, no backend/auth/OTP services. New
+  `screens/auth/{SplashAnimation,Onboarding,Login,OtpVerification}Screen`,
+  shared `screens/auth/components` (`AuthBackground`, `AuthFormHeader`,
+  `GlassInputSurface`), `screens/auth/mockData.ts`, and an `(auth)` route
+  group (`splash`, `onboarding`, `login`, `otp-verification`). Root
+  `_layout.tsx` now gates `(tabs)` and `(auth)` with `Stack.Protected` on a
+  new in-memory `store/useAuthStore` (`useSyncExternalStore`, Zustand-shaped
+  selector API; Zustand is not installed and adding it needs an ADR). Signing
+  in (mock OTP verify, or the mock Google/Apple buttons) flips the guard, so
+  the router drops the auth stack and lands on the existing home. Splash uses
+  `router.replace` and a run-once guard, so it can't replay via back.
+  Mock rules: 10-digit number required, any complete 5-digit OTP passes, the
+  resend countdown is 59s. `AppButton` gained optional `isDisabled`/`isLoading` props
+  (existing callers unchanged). Figma exposes no prototype/motion data for
+  the splash frames (`get_motion_context` returned empty), so timing is
+  inferred: 0.6s hold, portrait + purple glow rise in (0.9s), "Welcome to
+  SRM" fades in (0.7s), 1.3s hold, then a fade to onboarding. Reused existing
+  assets where Figma's export was byte-identical (`explore-blog-aum-bg.png`,
+  `kriya-card-bg.png`) or the same glow (`GlowBlobLarge.png`); new
+  `GlowBlobSplash.png` is Figma's blurred "Ellipse 17" baked to PNG (same
+  technique as the Kriya glows). Verified end-to-end in Expo Go on an Android
+  emulator with real taps: splash stages, onboarding → login, validation
+  error, Send OTP → OTP, Verify validation, countdown → Resend, Verify → home,
+  Google sign-in → home, Explore tab, and hardware back from home exits rather
+  than returning to auth. iOS was not run (no simulator on this Windows host).
+  `tsc --noEmit` clean; `eslint` and `prettier --check` clean on the touched files
+  (the repo-wide CRLF `prettier/prettier` noise is pre-existing).
+  Follow-up not done: the native `expo-splash-screen` config in `app.json`
+  is still the template blue (#208AEF), which flashes before the JS splash
+  in a dev/production build.
