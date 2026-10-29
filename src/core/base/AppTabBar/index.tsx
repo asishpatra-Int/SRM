@@ -48,7 +48,7 @@ const TABS = [
 ] as const;
 
 type AppTabBarProps = {
-  // "light" for Free/Premium users (Figma 1580:1382); "dark" otherwise.
+  // See getTabBarTheme: light for Free/Premium users and on Explore/Profile.
   theme: TabBarTheme;
   isGuest: boolean;
   onSignUpPress: () => void;
