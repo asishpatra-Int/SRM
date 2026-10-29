@@ -1,20 +1,29 @@
 import {StyleSheet} from "react-native";
 
+import {router} from "expo-router";
 import {TabList, Tabs, TabSlot, TabTrigger} from "expo-router/ui";
 
 import {AppTabBar} from "@/core/base/AppTabBar";
+import {useAuthStore} from "@/store";
 
 export default function TabsLayout() {
+  const isGuest = useAuthStore(s => s.isGuest);
+
+  // Guests only get Explore and Practice: leaving the Kriya and Profile
+  // triggers out removes those routes from the navigator, not just the bar.
   return (
     <Tabs>
       <TabSlot />
       <TabList style={styles.hidden}>
-        <TabTrigger name="kriya" href="/" />
+        {!isGuest && <TabTrigger name="kriya" href="/" />}
         <TabTrigger name="practice" href="/practice" />
         <TabTrigger name="explore" href="/explore" />
-        <TabTrigger name="profile" href="/profile" />
+        {!isGuest && <TabTrigger name="profile" href="/profile" />}
       </TabList>
-      <AppTabBar />
+      <AppTabBar
+        isGuest={isGuest}
+        onSignUpPress={() => router.push("/login")}
+      />
     </Tabs>
   );
 }

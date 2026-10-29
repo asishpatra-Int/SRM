@@ -131,13 +131,16 @@ export function LoginScreen() {
                   isDisabled={isSendingOtp}
                   onPress={handleSocialSignIn}
                 />
-                <SocialLoginButton
-                  label="Sign in with Apple"
-                  icon={appleLogo}
-                  iconCropStyle={APPLE_ICON_CROP}
-                  isDisabled={isSendingOtp}
-                  onPress={handleSocialSignIn}
-                />
+                {/* Sign in with Apple is offered on iOS only. */}
+                {Platform.OS === "ios" && (
+                  <SocialLoginButton
+                    label="Sign in with Apple"
+                    icon={appleLogo}
+                    iconCropStyle={APPLE_ICON_CROP}
+                    isDisabled={isSendingOtp}
+                    onPress={handleSocialSignIn}
+                  />
+                )}
               </View>
             </View>
           </ScrollView>

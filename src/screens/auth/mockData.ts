@@ -16,4 +16,5 @@ export const ONBOARDING_COPY = {
   title: "Find Yourself",
   body: "Amidst the chaos of life awaits your original self, a bundle of energy and bliss. Sri Guru’s wisdom, meditation and the SRM Community are here for all those set to find themselves.",
   ctaLabel: "Start Exploring",
+  secondaryCtaLabel: "Login",
 } as const;

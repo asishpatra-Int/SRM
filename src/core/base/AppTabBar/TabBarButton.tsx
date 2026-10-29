@@ -19,19 +19,34 @@ type TabBarButtonProps = {
   iconWidth: number;
   iconHeight: number;
   isFocused?: boolean;
+  // "tab" for route triggers; "button" for an action in the bar (Sign Up).
+  accessibilityRole?: "tab" | "button";
   onPress?: (event: GestureResponderEvent) => void;
 };
 
 export const TabBarButton = forwardRef<View, TabBarButtonProps>(
-  ({label, Icon, iconWidth, iconHeight, isFocused, onPress}, ref) => {
+  (
+    {
+      label,
+      Icon,
+      iconWidth,
+      iconHeight,
+      isFocused,
+      accessibilityRole = "tab",
+      onPress,
+    },
+    ref,
+  ) => {
     const tintColor = isFocused ? colors.accentGold : colors.textOnDark;
 
     return (
       <Pressable
         ref={ref}
         onPress={onPress}
-        accessibilityRole="tab"
-        accessibilityState={{selected: !!isFocused}}
+        accessibilityRole={accessibilityRole}
+        accessibilityState={
+          accessibilityRole === "tab" ? {selected: !!isFocused} : undefined
+        }
         style={[styles.button, isFocused && styles.buttonActive]}>
         <Icon width={iconWidth} height={iconHeight} color={tintColor} />
         <Text style={[styles.label, {color: tintColor}]}>{label}</Text>

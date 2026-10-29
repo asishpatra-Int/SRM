@@ -5,13 +5,15 @@ import {LinearGradient} from "expo-linear-gradient";
 
 import cardBackground from "@/assets/kriya-card-bg.png";
 import {AppButton} from "@/components";
-import {colors, radii, typography} from "@/core/theme";
+import {colors, radii, spacing, typography} from "@/core/theme";
 
 type OnboardingCardProps = {
   title: string;
   body: string;
   ctaLabel: string;
+  secondaryCtaLabel: string;
   onCtaPress: () => void;
+  onSecondaryCtaPress: () => void;
 };
 
 // Figma 1580:852. The texture is the same image as the Kriya practice card;
@@ -21,7 +23,9 @@ export function OnboardingCard({
   title,
   body,
   ctaLabel,
+  secondaryCtaLabel,
   onCtaPress,
+  onSecondaryCtaPress,
 }: OnboardingCardProps) {
   return (
     <View style={styles.card}>
@@ -43,7 +47,14 @@ export function OnboardingCard({
         </Text>
         <Text style={styles.body}>{body}</Text>
       </View>
-      <AppButton label={ctaLabel} onPress={onCtaPress} style={styles.cta} />
+      <View style={styles.actions}>
+        <AppButton label={ctaLabel} onPress={onCtaPress} />
+        <AppButton
+          label={secondaryCtaLabel}
+          variant="secondary"
+          onPress={onSecondaryCtaPress}
+        />
+      </View>
     </View>
   );
 }
@@ -82,7 +93,9 @@ const styles = StyleSheet.create({
     color: colors.textOnDark,
     maxWidth: 312,
   },
-  cta: {
+  // Same 12pt stack gap as the Login screen's social buttons.
+  actions: {
     alignSelf: "stretch",
+    gap: spacing.md,
   },
 });

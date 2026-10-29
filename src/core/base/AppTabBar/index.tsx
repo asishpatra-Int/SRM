@@ -15,6 +15,7 @@ import {TabBarButton} from "./TabBarButton";
 const TABS = [
   {
     name: "kriya",
+    isGuestAllowed: false,
     label: "Kriya",
     Icon: KriyaTabIcon,
     iconWidth: 17,
@@ -22,6 +23,7 @@ const TABS = [
   },
   {
     name: "practice",
+    isGuestAllowed: true,
     label: "Practice",
     Icon: PracticeTabIcon,
     iconWidth: 22,
@@ -29,6 +31,7 @@ const TABS = [
   },
   {
     name: "explore",
+    isGuestAllowed: true,
     label: "Explore",
     Icon: ExploreTabIcon,
     iconWidth: 22,
@@ -36,6 +39,7 @@ const TABS = [
   },
   {
     name: "profile",
+    isGuestAllowed: false,
     label: "Profile",
     Icon: ProfileTabIcon,
     iconWidth: 22,
@@ -43,8 +47,15 @@ const TABS = [
   },
 ] as const;
 
-export function AppTabBar() {
+type AppTabBarProps = {
+  isGuest: boolean;
+  onSignUpPress: () => void;
+};
+
+export function AppTabBar({isGuest, onSignUpPress}: AppTabBarProps) {
   const insets = useSafeAreaInsets();
+  // Must match the triggers the tabs layout registers for the same mode.
+  const visibleTabs = isGuest ? TABS.filter(tab => tab.isGuestAllowed) : TABS;
 
   return (
     <View
@@ -54,7 +65,7 @@ export function AppTabBar() {
       ]}
       pointerEvents="box-none">
       <BlurView intensity={60} tint="dark" style={styles.bar}>
-        {TABS.map(({name, label, Icon, iconWidth, iconHeight}) => (
+        {visibleTabs.map(({name, label, Icon, iconWidth, iconHeight}) => (
           <TabTrigger key={name} name={name} asChild>
             <TabBarButton
               label={label}
@@ -64,6 +75,18 @@ export function AppTabBar() {
             />
           </TabTrigger>
         ))}
+        {/* Guests get Sign Up in Profile's slot. It is an action, not a
+            route, so it never shows as the active tab. */}
+        {isGuest && (
+          <TabBarButton
+            label="Sign Up"
+            Icon={ProfileTabIcon}
+            iconWidth={22}
+            iconHeight={22}
+            accessibilityRole="button"
+            onPress={onSignUpPress}
+          />
+        )}
       </BlurView>
     </View>
   );

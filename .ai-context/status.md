@@ -1,6 +1,6 @@
 # Project Status Board
 
-_Last updated: 2026-10-15_
+_Last updated: 2026-10-29_
 
 ## Active Specs
 
@@ -250,3 +250,27 @@ _Last updated: 2026-10-15_
   Follow-up not done: the native `expo-splash-screen` config in `app.json`
   is still the template blue (#208AEF), which flashes before the JS splash
   in a dev/production build.
+
+### 2026-10-29
+
+- **Off-process exception (continued):** guest mode and auth-entry fixes (ad-hoc
+  bug-fix request, no spec). `useAuthStore` gained `isGuest`/`enterGuestMode()`;
+  `logIn`/`logOut` clear it. Onboarding: "Start Exploring" now enters guest mode
+  (no login/OTP) and a new outlined "Login" button (`AppButton` gained a
+  `variant="secondary"`) pushes `/login`. Root layout opens `(tabs)` to guests
+  and replaces to `/explore` from an effect. Navigating from the press handler
+  raced React Navigation's route-name ref, which updates in an effect, so the
+  guard was still closed. `(tabs)/_layout` drops the Kriya and Profile triggers
+  for guests, so those routes leave the navigator rather than only the bar.
+  `AppTabBar` shows Sign Up (Profile icon, `button` role, never active) in
+  Profile's slot, and it pushes `/login`. Login: "Sign in with Apple" renders
+  on iOS only. Guest tab order keeps the existing relative order: Practice,
+  Explore, Sign Up. The Login button style follows existing design tokens;
+  Figma was not checked (the connector isn't authenticated). Verified in Expo
+  Go on the Android emulator with real taps: Start Exploring → Explore active,
+  bar shows Practice/Explore/Sign Up only; Practice works; Sign Up → Login (no
+  Apple button) → back returns to tabs; Sign Up → OTP → all four tabs incl.
+  Kriya/Profile; back from home exits; cold start → Login → back → onboarding;
+  Login → Google → Kriya home; guest back from Explore exits. iOS not run.
+  `tsc --noEmit` clean; Prettier clean on touched files. ESLint reports only
+  the existing CRLF `prettier/prettier` noise.
