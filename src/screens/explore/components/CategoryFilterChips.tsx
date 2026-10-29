@@ -58,9 +58,13 @@ export function CategoryFilterChips({
 }
 
 const styles = StyleSheet.create({
+  // The strip spans the full screen width; the inset lives inside the scroll
+  // content so chips scroll edge to edge instead of clipping at the padding.
   row: {
     flexDirection: "row",
     gap: spacing.sm,
+    paddingLeft: spacing.xxl,
+    paddingRight: spacing.xl,
   },
   chip: {
     flexDirection: "row",

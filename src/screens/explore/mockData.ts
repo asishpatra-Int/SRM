@@ -356,7 +356,7 @@ export const MOCK_EVENTS_UPCOMING: UpcomingEventMock[] = [
     title: "Gita Wisdom",
     location: "Delhi",
     dateTimeLabel: "12 December, 7 PM",
-    background: exploreEventGitaWisdom3,
+    background: exploreEventGitaWisdom2,
     fullLocation: "Shah Auditorium, Delhi",
     description: MOCK_EVENT_DESCRIPTION,
   },

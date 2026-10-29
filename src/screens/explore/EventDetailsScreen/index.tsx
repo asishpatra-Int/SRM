@@ -57,10 +57,7 @@ export function EventDetailsScreen({eventId}: EventDetailsScreenProps) {
         </View>
 
         <View style={styles.section}>
-          <SectionHeading
-            title="More Upcoming Events"
-            onPress={() => router.push("/events")}
-          />
+          <SectionHeading title="More Upcoming Events" showChevron={false} />
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
