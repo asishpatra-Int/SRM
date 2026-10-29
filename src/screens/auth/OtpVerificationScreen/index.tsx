@@ -16,12 +16,12 @@ import {SafeAreaView} from "react-native-safe-area-context";
 
 import {AppButton} from "@/components";
 import {colors, spacing, typography} from "@/core/theme";
+import {useAuthQuery} from "@/query";
 import {useAuthStore} from "@/store";
 
 import {AuthBackground, AuthFormHeader} from "../components";
 import {
   MOCK_COUNTRY_DIAL_CODE,
-  MOCK_REQUEST_DELAY_MS,
   OTP_LENGTH,
   OTP_RESEND_SECONDS,
 } from "../mockData";
@@ -35,14 +35,11 @@ import {
 export function OtpVerificationScreen() {
   const {mobileNumber} = useLocalSearchParams<{mobileNumber?: string}>();
   const logIn = useAuthStore(s => s.logIn);
+  const {callVerifyOtp, isVerifyOtpLoading: isVerifying} = useAuthQuery();
   const [otpCode, setOtpCode] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isVerifying, setIsVerifying] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(OTP_RESEND_SECONDS);
   const otpInputRef = useRef<OtpCodeInputHandle>(null);
-  const pendingRequestRef = useRef<ReturnType<
-    typeof globalThis.setTimeout
-  > | null>(null);
 
   // Resend countdown; restarts whenever secondsLeft is reset.
   const isCountingDown = secondsLeft > 0;
@@ -56,24 +53,15 @@ export function OtpVerificationScreen() {
     return () => globalThis.clearInterval(interval);
   }, [isCountingDown]);
 
-  useEffect(
-    () => () => {
-      if (pendingRequestRef.current) {
-        globalThis.clearTimeout(pendingRequestRef.current);
-      }
-    },
-    [],
-  );
-
   const handleOtpChange = (value: string) => {
     setOtpCode(value);
     setErrorMessage(null);
   };
 
-  // Mock verification: no server, so any complete code succeeds. Signing in
-  // flips the root layout's auth guard, which swaps the auth stack for the
-  // existing home tabs (and drops this stack from history).
-  const handleVerify = () => {
+  // Verify against the (mock) auth service. Success stores the account
+  // (mobile number + user type) and flips the root layout's auth guard,
+  // which swaps the auth stack for the home tabs (dropping this history).
+  const handleVerify = async () => {
     if (isVerifying) {
       return;
     }
@@ -82,11 +70,19 @@ export function OtpVerificationScreen() {
       return;
     }
     Keyboard.dismiss();
-    setIsVerifying(true);
-    pendingRequestRef.current = globalThis.setTimeout(() => {
-      pendingRequestRef.current = null;
-      logIn();
-    }, MOCK_REQUEST_DELAY_MS);
+    const response = await callVerifyOtp({
+      mobileNumber: mobileNumber ?? "",
+      otp: otpCode,
+    });
+    if (response.isSuccess) {
+      logIn(response.user);
+      return;
+    }
+    setErrorMessage(
+      response.errorCode === "INCORRECT_OTP"
+        ? "Incorrect OTP. Please try again"
+        : "This mobile number is not registered",
+    );
   };
 
   // Mock resend: nothing is sent; just clear the code and restart the timer.

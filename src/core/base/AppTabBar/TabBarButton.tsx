@@ -13,7 +13,10 @@ import {colors, radii, spacing, typography} from "@/core/theme";
 
 import type {SvgProps} from "react-native-svg";
 
+export type TabBarTheme = "dark" | "light";
+
 type TabBarButtonProps = {
+  theme: TabBarTheme;
   label: string;
   Icon: ComponentType<SvgProps>;
   iconWidth: number;
@@ -27,6 +30,7 @@ type TabBarButtonProps = {
 export const TabBarButton = forwardRef<View, TabBarButtonProps>(
   (
     {
+      theme,
       label,
       Icon,
       iconWidth,
@@ -37,7 +41,16 @@ export const TabBarButton = forwardRef<View, TabBarButtonProps>(
     },
     ref,
   ) => {
-    const tintColor = isFocused ? colors.accentGold : colors.textOnDark;
+    const isLight = theme === "light";
+    const iconColor = isLight
+      ? isFocused
+        ? colors.borderPurple
+        : colors.pillLabelDark
+      : isFocused
+        ? colors.accentGold
+        : colors.textOnDark;
+    // Light theme keeps every label dark; only the icon marks the active tab.
+    const labelColor = isLight ? colors.pillLabelDark : iconColor;
 
     return (
       <Pressable
@@ -47,9 +60,14 @@ export const TabBarButton = forwardRef<View, TabBarButtonProps>(
         accessibilityState={
           accessibilityRole === "tab" ? {selected: !!isFocused} : undefined
         }
-        style={[styles.button, isFocused && styles.buttonActive]}>
-        <Icon width={iconWidth} height={iconHeight} color={tintColor} />
-        <Text style={[styles.label, {color: tintColor}]}>{label}</Text>
+        style={[
+          styles.button,
+          isLight && styles.buttonLight,
+          isFocused &&
+            (isLight ? styles.buttonActiveLight : styles.buttonActive),
+        ]}>
+        <Icon width={iconWidth} height={iconHeight} color={iconColor} />
+        <Text style={[styles.label, {color: labelColor}]}>{label}</Text>
       </Pressable>
     );
   },
@@ -69,6 +87,17 @@ const styles = StyleSheet.create({
   },
   buttonActive: {
     backgroundColor: colors.glassFaint,
+  },
+  // Figma 1580:1382: 10pt item padding, pill with a soft 0/40/30 shadow.
+  buttonLight: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  buttonActiveLight: {
+    backgroundColor: colors.tabActivePillLight,
+    boxShadow: [
+      {offsetX: 0, offsetY: 40, blurRadius: 30, color: colors.shadowColor},
+    ],
   },
   label: {
     ...typography.tabLabel,

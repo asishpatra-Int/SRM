@@ -1,5 +1,5 @@
-import {KriyaLandingScreen} from "@/screens/kriya";
+import {KriyaHomeScreen} from "@/screens/kriya";
 
 export default function KriyaRoute() {
-  return <KriyaLandingScreen />;
+  return <KriyaHomeScreen />;
 }

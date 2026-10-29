@@ -2,9 +2,8 @@ import {type Ref, useImperativeHandle, useRef, useState} from "react";
 
 import {Pressable, StyleSheet, Text, TextInput} from "react-native";
 
+import {AppGlassInputSurface} from "@/components";
 import {colors, typography} from "@/core/theme";
-
-import {GlassInputSurface} from "../../components";
 
 export type OtpCodeInputHandle = {
   focus: () => void;
@@ -53,12 +52,12 @@ export function OtpCodeInput({
       onPress={() => inputRef.current?.focus()}
       accessible={false}>
       {Array.from({length}, (_, index) => (
-        <GlassInputSurface
+        <AppGlassInputSurface
           key={index}
           isFocused={isFocused && index === activeIndex}
           style={styles.box}>
           <Text style={styles.digit}>{value[index] ?? ""}</Text>
-        </GlassInputSurface>
+        </AppGlassInputSurface>
       ))}
       <TextInput
         ref={inputRef}

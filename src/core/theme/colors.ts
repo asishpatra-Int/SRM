@@ -38,6 +38,10 @@ export const colors = {
   badgeBackground: "rgba(34, 23, 70, 0.4)",
   tabBarTint: "rgba(37, 37, 37, 0.4)",
   tabActivePill: "rgba(255, 255, 255, 0.06)",
+  // Light tab bar (Figma 1580:1382) — Free/Premium users: 80% white glass,
+  // grey active pill, purple active icon, dark labels and inactive icons.
+  tabBarLightBackground: "rgba(255, 255, 255, 0.8)",
+  tabActivePillLight: "rgba(209, 209, 209, 0.33)",
   shadowColor: "rgba(0, 0, 0, 0.05)",
   // Figma value — the design leans entirely on the backdrop blur for the
   // sheet's weight, so this tint is nearly transparent on its own. Used on iOS.
@@ -117,4 +121,13 @@ export const colors = {
     "rgba(237, 182, 102, 0.79)",
   ] as const,
   authCardGradientLocations: [0.1938, 0.4348, 0.6762, 1] as const,
+  // SwaRaj Kriya intro card (Figma 1580:1274) reuses authCardGradient's hues
+  // on a 114.92° line; its last stop (105.6%) is rescaled to 1.
+  kriyaIntroCardGradientLocations: [0.2101, 0.4462, 0.6827, 1] as const,
+  kriyaIntroEyebrow: "#FAF4ED",
+  kriyaIntroRowBackground: "rgba(71, 52, 140, 0.08)",
+  // SwaRaj Kriya application form (Figma 1580:1721).
+  applicationChipBackground: "rgba(255, 255, 255, 0.34)",
+  applicationChipLabel: "#5F5A5A",
+  toggleTrackOff: "rgba(95, 90, 90, 0.3)",
 } as const;

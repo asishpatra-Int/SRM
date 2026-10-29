@@ -1,5 +1,7 @@
 // Mock data standing in for the Kriya feature's backend/query layer.
 
+import type {AttendedEventType} from "@/models/kriya";
+
 export type PracticeSessionMock = {
   id: string;
   title: string;
@@ -73,4 +75,44 @@ export const MOCK_IMPROVEMENT_OPTIONS: ImprovementOptionMock[] = [
   {id: "less-focus", label: "Less focus"},
   {id: "got-asleep", label: "I got asleep"},
   {id: "lacking-motivation", label: "Lacking in motivation"},
+];
+
+// SwaRaj Kriya introduction (Free / Premium users) — Figma 1580:1214.
+export const SWARAJ_KRIYA_INTRO_COPY = {
+  eyebrow: "Start Your Journey with",
+  title: "SwaRaj Kriya",
+  body: "Here is an introduction to SwaRaj Kriya. It helps you understand the use and benefits of the Kriya in the short and long run. Once you are ready, send us a message to find out how you can start learning the Kriya.",
+  continueLabel: "Continue Watching",
+  applyLabel: "Apply for SwaRaj Kriya Course",
+  sectionTitle: "Introduction to SwaRaj Kriya",
+} as const;
+
+export type IntroductionVideoMock = {
+  id: string;
+  title: string;
+  durationLabel: string;
+};
+
+export const MOCK_INTRODUCTION_VIDEOS: IntroductionVideoMock[] = [
+  {
+    id: "do-you-need-kriya",
+    title: "Do you need Kriya?",
+    durationLabel: "30 Min",
+  },
+  {id: "lifes-final-goal", title: "Life’s Final Goal", durationLabel: "30 Min"},
+];
+
+// Application form (Figma 1580:1721). The country list is India-only until
+// the backend supplies one, matching the +91-only phone field.
+export const APPLICATION_COUNTRY = "India";
+
+export const ATTENDED_EVENT_OPTIONS: {
+  id: AttendedEventType;
+  label: string;
+}[] = [
+  {id: "LIVE_EVENTS", label: "Live Events"},
+  {id: "SCREENING_SATSANGS", label: "Screening Satsangs"},
+  {id: "DHYAN_SANGHA", label: "Dhyan Sangha"},
+  {id: "RETREAT", label: "Retreat"},
+  {id: "NEVER_ATTENDED", label: "Never Attended"},
 ];

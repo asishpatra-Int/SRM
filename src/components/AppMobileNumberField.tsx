@@ -7,32 +7,33 @@ import IndiaFlagBackground from "@/assets/svg/IndiaFlagBackground.svg";
 import IndiaFlagEmblem from "@/assets/svg/IndiaFlagEmblem.svg";
 import {colors, typography} from "@/core/theme";
 
-import {GlassInputSurface} from "../../components";
+import {AppGlassInputSurface} from "./AppGlassInputSurface";
 
-type MobileNumberFieldProps = {
+type AppMobileNumberFieldProps = {
   dialCode: string;
   value: string;
   maxLength: number;
   placeholder: string;
   onChangeText: (value: string) => void;
-  onSubmitEditing: () => void;
+  onSubmitEditing?: () => void;
 };
 
-// Figma "Input Field" 1580:926: flag + dial code + chevron, then the number.
+// Figma "Input Field" 1580:926 (Login) / 1580:2271 (Kriya application):
+// flag + dial code + chevron, then the number.
 // The flag is Figma's two layers stacked (its mask is a full-size rect, so
 // it clips nothing).
-export function MobileNumberField({
+export function AppMobileNumberField({
   dialCode,
   value,
   maxLength,
   placeholder,
   onChangeText,
   onSubmitEditing,
-}: MobileNumberFieldProps) {
+}: AppMobileNumberFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <GlassInputSurface isFocused={isFocused} style={styles.surface}>
+    <AppGlassInputSurface isFocused={isFocused} style={styles.surface}>
       <View style={styles.countryCode} accessible accessibilityLabel={dialCode}>
         <View style={styles.flag}>
           <IndiaFlagBackground
@@ -67,7 +68,7 @@ export function MobileNumberField({
         maxLength={maxLength}
         accessibilityLabel="Mobile number"
       />
-    </GlassInputSurface>
+    </AppGlassInputSurface>
   );
 }
 

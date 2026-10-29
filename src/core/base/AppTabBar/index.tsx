@@ -10,7 +10,7 @@ import PracticeTabIcon from "@/assets/svg/PracticeTabIcon.svg";
 import ProfileTabIcon from "@/assets/svg/ProfileTabIcon.svg";
 import {colors, radii, spacing} from "@/core/theme";
 
-import {TabBarButton} from "./TabBarButton";
+import {TabBarButton, type TabBarTheme} from "./TabBarButton";
 
 const TABS = [
   {
@@ -48,14 +48,17 @@ const TABS = [
 ] as const;
 
 type AppTabBarProps = {
+  // "light" for Free/Premium users (Figma 1580:1382); "dark" otherwise.
+  theme: TabBarTheme;
   isGuest: boolean;
   onSignUpPress: () => void;
 };
 
-export function AppTabBar({isGuest, onSignUpPress}: AppTabBarProps) {
+export function AppTabBar({theme, isGuest, onSignUpPress}: AppTabBarProps) {
   const insets = useSafeAreaInsets();
   // Must match the triggers the tabs layout registers for the same mode.
   const visibleTabs = isGuest ? TABS.filter(tab => tab.isGuestAllowed) : TABS;
+  const isLight = theme === "light";
 
   return (
     <View
@@ -64,10 +67,14 @@ export function AppTabBar({isGuest, onSignUpPress}: AppTabBarProps) {
         {paddingBottom: Math.max(insets.bottom, spacing.md)},
       ]}
       pointerEvents="box-none">
-      <BlurView intensity={60} tint="dark" style={styles.bar}>
+      <BlurView
+        intensity={60}
+        tint={isLight ? "light" : "dark"}
+        style={[styles.bar, isLight && styles.barLight]}>
         {visibleTabs.map(({name, label, Icon, iconWidth, iconHeight}) => (
           <TabTrigger key={name} name={name} asChild>
             <TabBarButton
+              theme={theme}
               label={label}
               Icon={Icon}
               iconWidth={iconWidth}
@@ -79,6 +86,7 @@ export function AppTabBar({isGuest, onSignUpPress}: AppTabBarProps) {
             route, so it never shows as the active tab. */}
         {isGuest && (
           <TabBarButton
+            theme={theme}
             label="Sign Up"
             Icon={ProfileTabIcon}
             iconWidth={22}
@@ -109,5 +117,8 @@ const styles = StyleSheet.create({
     borderRadius: radii.lg,
     overflow: "hidden",
     backgroundColor: colors.tabBarTint,
+  },
+  barLight: {
+    backgroundColor: colors.tabBarLightBackground,
   },
 });

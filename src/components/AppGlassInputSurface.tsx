@@ -4,19 +4,19 @@ import {type StyleProp, StyleSheet, View, type ViewStyle} from "react-native";
 
 import {colors, radii} from "@/core/theme";
 
-type GlassInputSurfaceProps = {
+type AppGlassInputSurfaceProps = {
   isFocused?: boolean;
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
 };
 
-// Figma "window glass" input (Login phone field, OTP boxes): 67% white,
+// Figma "window glass" input (phone fields, OTP boxes, form fields): 67% white,
 // radius 8, 1px white inset highlight, soft 0/40/30 drop shadow.
-export function GlassInputSurface({
+export function AppGlassInputSurface({
   isFocused = false,
   style,
   children,
-}: GlassInputSurfaceProps) {
+}: AppGlassInputSurfaceProps) {
   return (
     <View style={[styles.surface, isFocused && styles.focused, style]}>
       {children}

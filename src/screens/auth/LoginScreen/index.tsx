@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 
 import {
   KeyboardAvoidingView,
@@ -15,18 +15,15 @@ import {SafeAreaView} from "react-native-safe-area-context";
 
 import appleLogo from "@/assets/auth-apple-logo.png";
 import googleLogo from "@/assets/auth-google-logo.png";
-import {AppButton} from "@/components";
+import {AppButton, AppMobileNumberField} from "@/components";
 import {colors, spacing, typography} from "@/core/theme";
+import {useAuthQuery} from "@/query";
 import {useAuthStore} from "@/store";
 
 import {AuthBackground, AuthFormHeader} from "../components";
-import {
-  MOBILE_NUMBER_LENGTH,
-  MOCK_COUNTRY_DIAL_CODE,
-  MOCK_REQUEST_DELAY_MS,
-} from "../mockData";
+import {MOBILE_NUMBER_LENGTH, MOCK_COUNTRY_DIAL_CODE} from "../mockData";
 
-import {MobileNumberField, OrDivider, SocialLoginButton} from "./components";
+import {OrDivider, SocialLoginButton} from "./components";
 
 // Figma crops of the two logo screenshots into the 20×20 icon slot.
 const GOOGLE_ICON_CROP = {left: -0.54, top: -0.21, width: 21.22, height: 20.13};
@@ -34,29 +31,18 @@ const APPLE_ICON_CROP = {left: -3.94, top: -4.32, width: 28.4, height: 30.3};
 
 export function LoginScreen() {
   const logIn = useAuthStore(s => s.logIn);
+  const {callSendOtp, isSendOtpLoading: isSendingOtp} = useAuthQuery();
   const [mobileNumber, setMobileNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isSendingOtp, setIsSendingOtp] = useState(false);
-  const pendingRequestRef = useRef<ReturnType<
-    typeof globalThis.setTimeout
-  > | null>(null);
-
-  useEffect(
-    () => () => {
-      if (pendingRequestRef.current) {
-        globalThis.clearTimeout(pendingRequestRef.current);
-      }
-    },
-    [],
-  );
 
   const handleMobileNumberChange = (value: string) => {
     setMobileNumber(value.replace(/\D/g, ""));
     setErrorMessage(null);
   };
 
-  // Mock "Send OTP": validate locally, fake a round-trip, then move on.
-  const handleSendOtp = () => {
+  // "Send OTP": validate the format locally, then ask the (mock) auth
+  // service; only registered numbers move on to the OTP screen.
+  const handleSendOtp = async () => {
     if (isSendingOtp) {
       return;
     }
@@ -66,15 +52,15 @@ export function LoginScreen() {
       );
       return;
     }
-    setIsSendingOtp(true);
-    pendingRequestRef.current = globalThis.setTimeout(() => {
-      pendingRequestRef.current = null;
-      setIsSendingOtp(false);
-      router.push({
-        pathname: "/otp-verification",
-        params: {mobileNumber},
-      });
-    }, MOCK_REQUEST_DELAY_MS);
+    const response = await callSendOtp({mobileNumber});
+    if (!response.isSuccess) {
+      setErrorMessage("This mobile number is not registered");
+      return;
+    }
+    router.push({
+      pathname: "/otp-verification",
+      params: {mobileNumber},
+    });
   };
 
   // Mock social sign-in: no provider SDK yet, so it signs straight in. The
@@ -101,7 +87,7 @@ export function LoginScreen() {
             <AuthFormHeader title="Enter Mobile Number" />
             <View style={styles.form}>
               <View style={styles.fieldGroup}>
-                <MobileNumberField
+                <AppMobileNumberField
                   dialCode={MOCK_COUNTRY_DIAL_CODE}
                   value={mobileNumber}
                   maxLength={MOBILE_NUMBER_LENGTH}

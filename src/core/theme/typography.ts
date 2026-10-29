@@ -151,4 +151,21 @@ export const typography = {
     fontSize: 12,
     fontWeight: "500",
   },
+  // Figma "Body Headings": form labels and list-row titles.
+  bodyHeading: {
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  caption: {
+    fontSize: 12,
+    fontWeight: "400",
+    lineHeight: 20,
+  },
+  confirmationTitle: {
+    fontSize: 32,
+    fontWeight: "600",
+    lineHeight: 40,
+    textAlign: "center",
+    textTransform: "capitalize",
+  },
 } as const satisfies Record<string, TextStyle>;
