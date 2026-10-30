@@ -1,6 +1,6 @@
 import type {RefObject} from "react";
 
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, type ViewInstance} from "react-native";
 
 import {BlurTargetView} from "expo-blur";
 import {Image} from "expo-image";
@@ -18,7 +18,7 @@ type ImproveBackgroundProps = {
    * On Android expo-blur needs an explicit target; on iOS BlurTargetView is
    * just a plain View.
    */
-  blurTargetRef?: RefObject<View | null>;
+  blurTargetRef?: RefObject<ViewInstance | null>;
 };
 
 // Same ambient-glow fix as the other Kriya screens: Figma's export of this

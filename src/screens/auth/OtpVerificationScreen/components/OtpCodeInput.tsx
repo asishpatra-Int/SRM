@@ -1,6 +1,12 @@
 import {type Ref, useImperativeHandle, useRef, useState} from "react";
 
-import {Pressable, StyleSheet, Text, TextInput} from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  type TextInputInstance,
+} from "react-native";
 
 import {AppGlassInputSurface} from "@/components";
 import {colors, typography} from "@/core/theme";
@@ -29,7 +35,7 @@ export function OtpCodeInput({
   onChangeText,
   onComplete,
 }: OtpCodeInputProps) {
-  const inputRef = useRef<TextInput>(null);
+  const inputRef = useRef<TextInputInstance>(null);
   const [isFocused, setIsFocused] = useState(false);
 
   useImperativeHandle(ref, () => ({

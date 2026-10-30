@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  type ViewInstance,
 } from "react-native";
 
 import {router} from "expo-router";
@@ -33,7 +34,7 @@ export function KriyaImproveScreen() {
   );
   const [note, setNote] = useState("");
   const [shareWithTeam, setShareWithTeam] = useState(true);
-  const blurTargetRef = useRef<View>(null);
+  const blurTargetRef = useRef<ViewInstance>(null);
 
   const toggleOption = (id: string) => {
     setSelectedIds(current => {

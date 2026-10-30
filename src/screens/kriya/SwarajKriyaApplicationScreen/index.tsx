@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   View,
 } from "react-native";
@@ -64,7 +65,7 @@ export function SwarajKriyaApplicationScreen() {
     isSubmitSwarajKriyaApplicationLoading: isSubmitting,
   } = useKriyaQuery();
   const insets = useSafeAreaInsets();
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
   const [values, setValues] =
     useState<SwarajKriyaApplicationFormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<SwarajKriyaApplicationFormErrors>({});

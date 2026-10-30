@@ -1,6 +1,6 @@
 import {useRef} from "react";
 
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, type ViewInstance} from "react-native";
 
 import {router} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -27,7 +27,7 @@ type KriyaSessionScreenProps = {
 
 export function KriyaSessionScreen({practiceId}: KriyaSessionScreenProps) {
   const session = getPracticeSessionById(practiceId);
-  const blurTargetRef = useRef<View>(null);
+  const blurTargetRef = useRef<ViewInstance>(null);
 
   return (
     <View style={styles.root}>

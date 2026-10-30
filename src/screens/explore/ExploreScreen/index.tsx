@@ -1,6 +1,11 @@
 import {useRef, useState} from "react";
 
-import {ScrollView, StyleSheet, View} from "react-native";
+import {
+  ScrollView,
+  type ScrollViewInstance,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import {router} from "expo-router";
 import {StatusBar} from "expo-status-bar";
@@ -56,7 +61,7 @@ export function ExploreScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<ExploreCategoryId>("all");
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<ScrollViewInstance>(null);
 
   // "All" shows a preview of every category; each other chip swaps in that
   // category's full listing on this same screen, per its Figma frame.

@@ -4,9 +4,9 @@ import type {ComponentType} from "react";
 import {
   type GestureResponderEvent,
   Pressable,
+  type PressableInstance,
   StyleSheet,
   Text,
-  View,
 } from "react-native";
 
 import {colors, radii, spacing, typography} from "@/core/theme";
@@ -27,7 +27,7 @@ type TabBarButtonProps = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-export const TabBarButton = forwardRef<View, TabBarButtonProps>(
+export const TabBarButton = forwardRef<PressableInstance, TabBarButtonProps>(
   (
     {
       theme,

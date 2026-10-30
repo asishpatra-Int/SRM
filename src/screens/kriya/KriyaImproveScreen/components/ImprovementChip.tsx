@@ -1,6 +1,6 @@
 import type {RefObject} from "react";
 
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleSheet, Text, type ViewInstance} from "react-native";
 
 import {BlurView} from "expo-blur";
 
@@ -15,7 +15,7 @@ type ImprovementChipProps = {
    * without it, `blurMethod` silently falls back to "none" and no blur is
    * drawn.
    */
-  blurTarget?: RefObject<View | null>;
+  blurTarget?: RefObject<ViewInstance | null>;
 };
 
 // Figma shows only the unselected state (translucent glass pill). The

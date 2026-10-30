@@ -1,6 +1,6 @@
 import type {RefObject} from "react";
 
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput, type ViewInstance} from "react-native";
 
 import {BlurView} from "expo-blur";
 
@@ -13,7 +13,7 @@ type NoteInputProps = {
    * The background this box blurs. Required on Android: without it,
    * `blurMethod` silently falls back to "none" and no blur is drawn.
    */
-  blurTarget?: RefObject<View | null>;
+  blurTarget?: RefObject<ViewInstance | null>;
 };
 
 // "Note:" is a persistent label, not the TextInput's placeholder — a

@@ -1,6 +1,12 @@
 import type {RefObject} from "react";
 
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  type ViewInstance,
+} from "react-native";
 
 import {BlurView} from "expo-blur";
 
@@ -13,7 +19,7 @@ type GlassPillButtonProps = {
    * The background this pill blurs. Required on Android: without it,
    * `blurMethod` silently falls back to "none" and no blur is drawn.
    */
-  blurTarget?: RefObject<View | null>;
+  blurTarget?: RefObject<ViewInstance | null>;
 };
 
 export function GlassPillButton({

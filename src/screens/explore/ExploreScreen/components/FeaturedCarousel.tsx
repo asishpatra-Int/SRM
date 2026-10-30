@@ -4,6 +4,7 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   ScrollView,
+  type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
   View,
@@ -23,7 +24,7 @@ export function FeaturedCarousel({items}: FeaturedCarouselProps) {
   const {width: screenWidth} = useWindowDimensions();
   const cardWidth = screenWidth - 48;
   const [activeIndex, setActiveIndex] = useState(0);
-  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollViewRef = useRef<ScrollViewInstance>(null);
   const isDragging = useRef(false);
 
   useEffect(() => {
