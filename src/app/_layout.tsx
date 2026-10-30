@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 import {StyleSheet} from "react-native";
 
@@ -22,6 +22,17 @@ export default function RootLayout() {
       router.replace("/explore");
     }
   }, [isGuest]);
+
+  // Logging out (Profile's Log Out) opens the (auth) stack at its initial
+  // route, the splash — skip the splash/onboarding replay and land on login.
+  // Same timing as above: wait for the Stack to commit the flipped guard.
+  const wasLoggedInRef = useRef(isLoggedIn);
+  useEffect(() => {
+    if (wasLoggedInRef.current && !isLoggedIn) {
+      router.replace("/login");
+    }
+    wasLoggedInRef.current = isLoggedIn;
+  }, [isLoggedIn]);
 
   // Auth guard: while signed out (and not a guest), "/" (the home tabs) is
   // unavailable, so launch falls through to the (auth) stack — splash →
