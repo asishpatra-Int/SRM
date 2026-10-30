@@ -1,6 +1,6 @@
 # Project Status Board
 
-_Last updated: 2026-10-29_
+_Last updated: 2026-10-30_
 
 ## Active Specs
 
@@ -274,3 +274,34 @@ _Last updated: 2026-10-29_
   Login → Google → Kriya home; guest back from Explore exits. iOS not run.
   `tsc --noEmit` clean; Prettier clean on touched files. ESLint reports only
   the existing CRLF `prettier/prettier` noise.
+
+### 2026-10-30
+
+- **Off-process exception (continued):** Profile, Certificates, Subscription
+  and Payment Done screens (Figma 1671:1324, 1643:12940, 1643:13304,
+  1640:12188, plus the language popover 1640:12245 and the certificate
+  preview 1640:12255), on explicit user request. No spec exists: UI only,
+  mock data, no payment gateway and no backend. Feature group `profile`:
+  `screens/profile/{Profile,Certificates,Subscription,PaymentSuccess}Screen`,
+  `models/profile` (purchase request/response), mock
+  `ProfileService.purchaseSubscription`, `useProfileQuery`, and routes
+  `/certificates`, `/subscription`, `/payment-success`. Flow: Profile →
+  certificates heading/cards → Certificates → card or eye → preview modal;
+  Profile → Subscription row → Pay Now (mock 600ms purchase) → replace to
+  Payment Done → Back to Home (`router.dismissTo("/")`). Profile content
+  follows the dummy user type (`getMockProfile`). Only SK users get the
+  program chips and the My Kriya streak. A null (social) user gets the
+  Free profile. Reuses the Explore `ExploreBackground`, `EventCard`,
+  `SectionHeading` and `getEventById` across feature groups. Image assets
+  that are byte-identical to the Figma exports are reused. New assets are
+  `profile-certificate-sample.png` and `assets/svg/profile/*`. `AppButton`
+  gained `variant="light"`; existing callers are unchanged. Inert by design (no
+  destination yet): Account Settings, Help & Support, certificate download,
+  I Want to Pay Offline, Need Help with Payment. Language selection is
+  screen-local state only (no i18n). Payment Done's Lottie slot is kept as
+  empty space (blank preview frame, Lottie not installed). `tsc --noEmit`
+  is clean. ESLint and Prettier are clean on the touched files, apart from
+  the existing resolver/CRLF noise. The Android `expo export` bundles. Not
+  verified on a device: Expo Go download failed on the network's TLS
+  interception. The web static export fails on the existing `bookmarks`
+  route, which is out of scope.

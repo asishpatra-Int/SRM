@@ -168,4 +168,18 @@ export const typography = {
     textAlign: "center",
     textTransform: "capitalize",
   },
+  avatarInitials: {
+    fontSize: 28,
+    fontWeight: "600",
+  },
+  planTitle: {
+    fontSize: 32,
+    fontWeight: "700",
+    lineHeight: 38,
+    letterSpacing: -0.32,
+  },
+  planPrice: {
+    fontSize: 24,
+    fontWeight: "600",
+  },
 } as const satisfies Record<string, TextStyle>;

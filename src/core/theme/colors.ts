@@ -130,4 +130,38 @@ export const colors = {
   applicationChipBackground: "rgba(255, 255, 255, 0.34)",
   applicationChipLabel: "#5F5A5A",
   toggleTrackOff: "rgba(95, 90, 90, 0.3)",
+  // Profile (Figma 1671:1324). The avatar gradient is sampled from the
+  // design's placeholder avatar art.
+  profileAvatarGradient: ["#A9B5DF", "#6E72B4"] as const,
+  profileSettingsCardBackground: "rgba(255, 255, 255, 0.5)",
+  profileSettingsDivider: "rgba(71, 52, 140, 0.07)",
+  // "My Kriya" streak card: Kriya card hues at 0.74 alpha on a 163.79° line;
+  // the 104.8% stop is rescaled to 1 (see PracticeSummaryCard).
+  profileStreakCardGradient: [
+    "rgba(37, 2, 89, 0.74)",
+    "rgba(53, 25, 104, 0.74)",
+    "rgba(86, 72, 134, 0.74)",
+    "rgba(237, 182, 102, 0.74)",
+  ] as const,
+  profileStreakCardGradientLocations: [0.3129, 0.531, 0.7633, 1] as const,
+  languageMenuBackground: "#FFFFFF",
+  languageMenuDivider: "#EAEAEA",
+  // Figma's 0 0 4px rgba(0,0,0,0.2) — the language menu and certificate
+  // preview card.
+  popoverShadow: "rgba(0, 0, 0, 0.2)",
+  // Certificates (Figma 1643:12940).
+  certificateImageOverlay: "rgba(0, 0, 0, 0.08)",
+  certificateActionBackground: "#FFFFFF",
+  certificatePreviewBackground: "#E5E5E5",
+  certificatePreviewCloseBackground: "rgba(255, 255, 255, 0.15)",
+  // Subscription plan card (Figma 1643:13397): opaque, on a 131.23° line;
+  // the 116.27% stop is rescaled to 1 (see SubscriptionPlanCard).
+  subscriptionPlanGradient: [
+    "#250259",
+    "#351968",
+    "#734E67",
+    "#EDB666",
+  ] as const,
+  subscriptionPlanGradientLocations: [0.0628, 0.2535, 0.794, 1] as const,
+  ctaLightBackground: "#FFFFFF",
 } as const;

@@ -1,0 +1,1 @@
+export {CertificatePreviewModal} from "./CertificatePreviewModal";

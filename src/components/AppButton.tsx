@@ -15,13 +15,15 @@ type AppButtonProps = {
   style?: StyleProp<ViewStyle>;
   isDisabled?: boolean;
   isLoading?: boolean;
-  // "secondary" is the outlined pill for the lesser of two stacked actions.
-  variant?: "primary" | "secondary";
+  // "secondary" is the outlined pill for the lesser of two stacked actions;
+  // "light" is the solid white pill used on light screens (Subscription).
+  variant?: "primary" | "secondary" | "light";
 };
 
 // The gold pill CTA used across the Kriya flow (Get Ready sheet, mood check
 // screen) and the auth flow: rounded-53, #EDB666 fill, #250259 label. The
-// secondary variant keeps the same pill and type, outlined in gold.
+// secondary variant keeps the same pill and type, outlined in gold; the
+// light variant swaps the gold fill for white.
 export function AppButton({
   label,
   onPress,
@@ -32,12 +34,14 @@ export function AppButton({
 }: AppButtonProps) {
   const isInactive = isDisabled || isLoading;
   const isSecondary = variant === "secondary";
+  const isLight = variant === "light";
 
   return (
     <Pressable
       style={[
         styles.button,
         isSecondary && styles.buttonSecondary,
+        isLight && styles.buttonLight,
         isDisabled && styles.disabled,
         style,
       ]}
@@ -71,6 +75,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.accentGold,
     backgroundColor: colors.transparent,
+  },
+  buttonLight: {
+    backgroundColor: colors.ctaLightBackground,
   },
   disabled: {
     opacity: 0.6,
