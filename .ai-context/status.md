@@ -305,3 +305,14 @@ _Last updated: 2026-10-30_
   verified on a device: Expo Go download failed on the network's TLS
   interception. The web static export fails on the existing `bookmarks`
   route, which is out of scope.
+- **Off-process exception (continued):** Practice content details
+  (`/content/[contentId]`) follows the light/dark Practice theme on explicit
+  user request. Like the Practice tab, it is light for guests and Free users
+  (`usesLightPracticeTheme`) and dark for Premium and SK. Light uses
+  `ExploreBackground`, a dark status bar and Explore's detail colours: title
+  `borderPurple`, meta `exploreTextMuted`, body `pillLabelDark`, the glass
+  ritual card, and purple action circles. `PracticeBackButton` gained an
+  optional `theme`, defaulting to dark, so Bookmarks/Downloads are
+  unchanged. No Figma frame exists for the light variant. `tsc --noEmit` is
+  clean, and ESLint is clean apart from the existing resolver noise. Not
+  verified on a device.

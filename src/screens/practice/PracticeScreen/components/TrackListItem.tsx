@@ -9,7 +9,10 @@ import PlaySymbol from "@/assets/svg/PlaySymbol.svg";
 import {AppText} from "@/components";
 import {colors, typography} from "@/core/theme";
 
+import type {PracticeTheme} from "./practiceTheme";
+
 type TrackListItemProps = {
+  theme: PracticeTheme;
   title: string;
   genre: string;
   durationLabel: string;
@@ -21,6 +24,7 @@ type TrackListItemProps = {
 };
 
 export function TrackListItem({
+  theme,
   title,
   genre,
   durationLabel,
@@ -30,20 +34,34 @@ export function TrackListItem({
   onDownloadPress,
   onBookmarkPress,
 }: TrackListItemProps) {
+  const isLight = theme === "light";
+  const actionCircleStyle = [
+    styles.actionCircle,
+    isLight && styles.actionCircleLight,
+  ];
+
   return (
-    <Pressable style={styles.row} onPress={onPress}>
+    <Pressable
+      style={[styles.row, isLight && styles.rowLight]}
+      onPress={onPress}>
       <Image source={image} style={styles.thumbnail} contentFit="cover" />
       <View style={styles.details}>
         <View style={styles.titleBlock}>
-          <AppText style={typography.listItemTitleMedium}>{title}</AppText>
-          <AppText style={typography.trackMeta}>
+          <AppText
+            style={[
+              typography.listItemTitleMedium,
+              isLight && styles.titleLight,
+            ]}>
+            {title}
+          </AppText>
+          <AppText style={[typography.trackMeta, isLight && styles.metaLight]}>
             {genre} · {durationLabel}
           </AppText>
         </View>
         <View style={styles.actionsRow}>
           <View style={styles.actionsLeft}>
             <Pressable
-              style={styles.actionCircle}
+              style={actionCircleStyle}
               onPress={onDownloadPress}
               accessibilityRole="button"
               accessibilityLabel={isDownloaded ? "Downloaded" : "Download"}>
@@ -54,7 +72,7 @@ export function TrackListItem({
               )}
             </Pressable>
             <Pressable
-              style={styles.actionCircle}
+              style={actionCircleStyle}
               onPress={onBookmarkPress}
               accessibilityRole="button"
               accessibilityLabel="Bookmark">
@@ -78,6 +96,15 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     backgroundColor: colors.trackCardBackground,
+  },
+  rowLight: {
+    backgroundColor: colors.exploreGlassCardBackground,
+  },
+  titleLight: {
+    color: colors.pillLabelDark,
+  },
+  metaLight: {
+    color: colors.exploreTextMuted,
   },
   thumbnail: {
     width: 104,
@@ -109,5 +136,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.trackActionBackground,
+  },
+  // The download/bookmark icons are white-only artwork, so on the light
+  // card they sit on a solid brand-purple circle to stay legible.
+  actionCircleLight: {
+    backgroundColor: colors.borderPurple,
   },
 });

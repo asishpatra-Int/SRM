@@ -48,7 +48,8 @@ const TABS = [
 ] as const;
 
 type AppTabBarProps = {
-  // See getTabBarTheme: light for Free/Premium users and on Explore/Profile.
+  // See getTabBarTheme: light for guests, Free/Premium users and on
+  // Explore/Profile.
   theme: TabBarTheme;
   isGuest: boolean;
   onSignUpPress: () => void;

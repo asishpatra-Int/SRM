@@ -3,10 +3,14 @@ import {useState} from "react";
 import {ScrollView, StyleSheet, View} from "react-native";
 
 import {router} from "expo-router";
+import {StatusBar} from "expo-status-bar";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 import {AppText} from "@/components";
-import {spacing, typography} from "@/core/theme";
+import {colors, spacing, typography} from "@/core/theme";
+import {ExploreBackground} from "@/screens/explore/components";
+import {useAuthStore} from "@/store";
+import {usesLightPracticeTheme} from "@/utils";
 
 import {
   MOCK_OTHER_TRACKS,
@@ -18,11 +22,19 @@ import {
   PracticeBackground,
   PracticeHeader,
   PracticeSearchRow,
+  type PracticeTheme,
   PracticeTopicFilterSheet,
   TrackListItem,
 } from "./components";
 
 export function PracticeScreen() {
+  const isGuest = useAuthStore(s => s.isGuest);
+  const userType = useAuthStore(s => s.user?.userType);
+  const theme: PracticeTheme = usesLightPracticeTheme(userType, isGuest)
+    ? "light"
+    : "dark";
+  const isLight = theme === "light";
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterVisible, setFilterVisible] = useState(false);
   // Committed filter — drives the active-filter dot on the filter button.
@@ -67,17 +79,20 @@ export function PracticeScreen() {
 
   return (
     <View style={styles.root}>
-      <PracticeBackground />
+      <StatusBar style={isLight ? "dark" : "light"} />
+      {isLight ? <ExploreBackground /> : <PracticeBackground />}
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}>
           <View style={styles.headerBlock}>
             <PracticeHeader
+              theme={theme}
               onBookmarksPress={() => router.push("/bookmarks")}
               onDownloadsPress={() => router.push("/downloads")}
             />
             <PracticeSearchRow
+              theme={theme}
               value={searchQuery}
               onChangeText={setSearchQuery}
               onFilterPress={openFilterSheet}
@@ -89,6 +104,7 @@ export function PracticeScreen() {
             {MOCK_YOUR_PRACTICE_TRACKS.map(track => (
               <TrackListItem
                 key={track.id}
+                theme={theme}
                 title={track.title}
                 genre={track.genre}
                 durationLabel={track.durationLabel}
@@ -100,10 +116,17 @@ export function PracticeScreen() {
           </View>
 
           <View style={styles.trackList}>
-            <AppText style={typography.sectionLabel}>Other Tracks</AppText>
+            <AppText
+              style={[
+                typography.sectionLabel,
+                isLight && styles.sectionLabelLight,
+              ]}>
+              Other Tracks
+            </AppText>
             {MOCK_OTHER_TRACKS.map(track => (
               <TrackListItem
                 key={track.id}
+                theme={theme}
                 title={track.title}
                 genre={track.genre}
                 durationLabel={track.durationLabel}
@@ -147,5 +170,8 @@ const styles = StyleSheet.create({
   },
   trackList: {
     gap: spacing.md,
+  },
+  sectionLabelLight: {
+    color: colors.borderPurple,
   },
 });

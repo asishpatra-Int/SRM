@@ -3,9 +3,12 @@ import {StyleSheet, View} from "react-native";
 import {Image} from "expo-image";
 
 import {AppText} from "@/components";
-import {typography} from "@/core/theme";
+import {colors, typography} from "@/core/theme";
+
+import type {PracticeTheme} from "../../PracticeScreen/components";
 
 type ContentSummaryRowProps = {
+  theme: PracticeTheme;
   title: string;
   genre: string;
   durationLabel: string;
@@ -13,16 +16,21 @@ type ContentSummaryRowProps = {
 };
 
 export function ContentSummaryRow({
+  theme,
   title,
   genre,
   durationLabel,
   image,
 }: ContentSummaryRowProps) {
+  const isLight = theme === "light";
+
   return (
     <View style={styles.row}>
       <View style={styles.textBlock}>
-        <AppText style={typography.detailTitle}>{title}</AppText>
-        <AppText style={typography.detailLabel}>
+        <AppText style={[typography.detailTitle, isLight && styles.titleLight]}>
+          {title}
+        </AppText>
+        <AppText style={[typography.detailLabel, isLight && styles.metaLight]}>
           {genre} · {durationLabel}
         </AppText>
       </View>
@@ -41,6 +49,13 @@ const styles = StyleSheet.create({
   textBlock: {
     flex: 1,
     gap: 8,
+  },
+  // Explore detail screens' title/meta colours (BlogDetailsScreen).
+  titleLight: {
+    color: colors.borderPurple,
+  },
+  metaLight: {
+    color: colors.exploreTextMuted,
   },
   thumbnail: {
     width: 129,

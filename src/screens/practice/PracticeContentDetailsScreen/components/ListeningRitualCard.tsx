@@ -7,6 +7,8 @@ import {AppText} from "@/components";
 import {colors, spacing, typography} from "@/core/theme";
 import type {ListeningRitualStepMock} from "@/screens/practice/mockData";
 
+import type {PracticeTheme} from "../../PracticeScreen/components";
+
 const RITUAL_ICONS = {
   leaf: LeafIcon,
   music: MusicIcon,
@@ -14,18 +16,23 @@ const RITUAL_ICONS = {
 } as const;
 
 type ListeningRitualCardProps = {
+  theme: PracticeTheme;
   steps: ListeningRitualStepMock[];
 };
 
-export function ListeningRitualCard({steps}: ListeningRitualCardProps) {
+export function ListeningRitualCard({theme, steps}: ListeningRitualCardProps) {
+  const isLight = theme === "light";
+
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, isLight && styles.cardLight]}>
       {steps.map(step => {
         const RitualIcon = RITUAL_ICONS[step.icon];
         return (
           <View key={step.id} style={styles.stepRow}>
             <RitualIcon width={18} height={18} />
-            <AppText style={styles.stepText}>{step.text}</AppText>
+            <AppText style={[styles.stepText, isLight && styles.stepTextLight]}>
+              {step.text}
+            </AppText>
           </View>
         );
       })}
@@ -41,6 +48,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.trackCardBackground,
   },
+  // Same glass card as the light TrackListItem.
+  cardLight: {
+    backgroundColor: colors.exploreGlassCardBackground,
+  },
   stepRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -51,5 +62,8 @@ const styles = StyleSheet.create({
     ...typography.detailBody,
     flex: 1,
     color: colors.contentGuidanceText,
+  },
+  stepTextLight: {
+    color: colors.pillLabelDark,
   },
 });

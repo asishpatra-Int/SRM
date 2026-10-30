@@ -24,7 +24,7 @@ export default function TabsLayout() {
         {!isGuest && <TabTrigger name="profile" href="/profile" />}
       </TabList>
       <AppTabBar
-        theme={getTabBarTheme(userType, pathname)}
+        theme={getTabBarTheme(userType, isGuest, pathname)}
         isGuest={isGuest}
         onSignUpPress={() => router.push("/login")}
       />

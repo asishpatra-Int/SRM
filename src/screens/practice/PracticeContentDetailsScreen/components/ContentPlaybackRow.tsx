@@ -7,7 +7,10 @@ import PlayTriangleIcon from "@/assets/svg/PlayTriangleIcon.svg";
 import {AppText} from "@/components";
 import {colors, radii, typography} from "@/core/theme";
 
+import type {PracticeTheme} from "../../PracticeScreen/components";
+
 type ContentPlaybackRowProps = {
+  theme: PracticeTheme;
   durationLabel: string;
   onPlayPress?: () => void;
   onDownloadPress?: () => void;
@@ -15,15 +18,22 @@ type ContentPlaybackRowProps = {
 };
 
 export function ContentPlaybackRow({
+  theme,
   durationLabel,
   onPlayPress,
   onDownloadPress,
   onBookmarkPress,
 }: ContentPlaybackRowProps) {
+  const isLight = theme === "light";
+  const actionCircleStyle = [
+    styles.actionCircle,
+    isLight && styles.actionCircleLight,
+  ];
+
   return (
     <View style={styles.row}>
       <Pressable
-        style={styles.pill}
+        style={[styles.pill, isLight && styles.pillLight]}
         onPress={onPlayPress}
         accessibilityRole="button"
         accessibilityLabel={`Play ${durationLabel}`}>
@@ -32,14 +42,14 @@ export function ContentPlaybackRow({
         <PlayTriangleIcon width={11} height={12} />
       </Pressable>
       <Pressable
-        style={styles.actionCircle}
+        style={actionCircleStyle}
         onPress={onDownloadPress}
         accessibilityRole="button"
         accessibilityLabel="Download">
         <DownloadIcon width={17} height={17} />
       </Pressable>
       <Pressable
-        style={styles.actionCircle}
+        style={actionCircleStyle}
         onPress={onBookmarkPress}
         accessibilityRole="button"
         accessibilityLabel="Bookmark">
@@ -66,6 +76,15 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     backgroundColor: colors.textOnDark,
   },
+  // The white pill would melt into the light background, so it takes
+  // Explore's soft button shadow (ExploreSearchBar's filter button).
+  pillLight: {
+    shadowColor: colors.shadowColor,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 2,
+  },
   pillLabel: {
     ...typography.detailLabel,
     color: colors.pillLabelDark,
@@ -77,5 +96,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.trackActionBackground,
+  },
+  // Same as TrackListItem: the icons are white-only artwork, so on the light
+  // theme they sit on a solid brand-purple circle to stay legible.
+  actionCircleLight: {
+    backgroundColor: colors.borderPurple,
   },
 });
